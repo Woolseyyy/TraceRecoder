@@ -1,0 +1,373 @@
+package com.dankstudio.www.tracerecord;
+
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Binder;
+import android.os.IBinder;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.*;
+import com.baidu.trace.*;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+import java.util.*;
+
+public class MyService extends Service {
+    private Trip trip;
+    private User user;
+
+    //轨迹参数
+    private long serviceId  = 138084;//鹰眼服务ID
+    private String entityName = null;//entity标识
+    private int  traceType = 2;//轨迹服务类型（0 : 不上传位置数据，也不接收报警信息； 1 : 不上传位置数据，但接收报警信息；2 : 上传位置数据，且接收报警信息）
+    private int gatherInterval = 3;// 采集周期
+    private int packInterval = 10;// 打包周期
+    private int protocolType = 1;// http协议类型
+
+
+    private Trace trace;//实例化轨迹服务
+    private LBSTraceClient client;//实例化轨迹服务客户端
+
+
+    //实例化开启轨迹服务回调接口
+    private OnStartTraceListener  startTraceListener = new OnStartTraceListener() {
+        //开启轨迹服务回调接口（arg0 : 消息编码，arg1 : 消息内容，详情查看类参考）
+        @Override
+        public void onTraceCallback(int arg0, String arg1) {
+        }
+        //轨迹服务推送接口（用于接收服务端推送消息，arg0 : 消息类型，arg1 : 消息内容，详情查看类参考）
+        @Override
+        public void onTracePushCallback(byte arg0, String arg1) {
+        }
+    };
+
+    //实例化停止轨迹服务回调接口
+    private OnStopTraceListener stopTraceListener = new OnStopTraceListener(){
+        // 轨迹服务停止成功
+        @Override
+        public void onStopTraceSuccess() {
+        }
+        // 轨迹服务停止失败（arg0 : 错误编码，arg1 : 消息内容，详情查看类参考）
+        @Override
+        public void onStopTraceFailed(int arg0, String arg1) {
+        }
+    };
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        traceInit();
+
+        dataUpdate();
+    }
+
+    //init
+    private void traceInit(){
+        entityName = getImei(getApplicationContext());  //手机Imei值的获取，用来充当实体名
+
+        client = new LBSTraceClient(getApplicationContext()); //实例化轨迹客户端
+        trace = new Trace(getApplicationContext(), serviceId, entityName, traceType);//实例化轨迹服务
+
+        client. setInterval(gatherInterval, packInterval);// 设置采集和打包周期
+        client. setLocationMode(LocationMode.High_Accuracy); // 设置定位模式
+        client. setProtocolType (protocolType); // 设置http协议类型
+    }
+    private void dataUpdate(){
+        //todo
+        user = new User("123", "123", 1);
+    }
+
+    //connect using binder
+    private final IBinder binder = new MyBinder();
+    class MyBinder extends Binder {
+        MyService getService() {
+            return MyService.this;
+        }
+    }
+    @Override
+    public IBinder onBind(Intent intent) {
+        return binder;
+    }
+
+    //api
+    public void modeChange(TravelWay way){
+        Log.e("MY", "enter modeChange:"+way);
+        trip.modeChange(way);
+    }
+
+    public void start(TravelPurpose purpose, TravelWay way){
+        client.startTrace(trace, startTraceListener);//开启轨迹服务
+
+        //new trip
+        Tools tools = new Tools(client, serviceId, entityName);
+        trip = new Trip(user, purpose, tools, way);
+
+        mapRefresh();//地图更新
+    }
+    public void stop(){
+        trip.stopTrip();
+        client.stopTrace(trace,stopTraceListener); //停止轨迹服务
+
+    }
+
+    private void mapRefresh(){
+        //todo
+    }
+
+
+    //获取手机的Imei码，作为实体对象的标记值
+    private String getImei(Context context){
+        String mImei = "NULL";
+        try {
+            mImei = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+        } catch (Exception e) {
+            System.out.println("获取IMEI码失败");
+            mImei = "NULL";
+        }
+        return mImei;
+    }
+}
+
+class Tools{
+    private ReverseGeoCodeOption myReverseGeoCodeOption = new ReverseGeoCodeOption();
+    public ReverseGeoCodeResult myReverseGeoCodeResult;
+    public ReverseGeoCodeResult.AddressComponent myAddressComponent;
+    private LBSTraceClient client;
+    private long serviceId;
+    private String entityName;
+
+    Tools(LBSTraceClient in_client, long in_serviceId, String in_entityName){
+        client = in_client;
+        serviceId = in_serviceId;
+        entityName = in_entityName;
+    }
+
+    class LocTools{
+        //private String loc;
+        //private double[] locData;
+        private MyLocation loc;
+        private GeoCoder mSearch = GeoCoder.newInstance();
+
+        LocTools(MyLocation in_loc){
+            loc = in_loc;
+            mSearch.setOnGetGeoCodeResultListener(geoCoderListener);
+        }
+        protected void finalize(){
+            mSearch.destroy();
+        }
+
+        private OnEntityListener entityListener = new OnEntityListener() {
+            @Override
+            public void onRequestFailedCallback(String s) {
+
+            }
+
+            public void onReceiveLocation(TraceLocation location){
+                Log.e("MY", "-1:" + location.toString());
+                Log.e("MY", "0:"+location.getLatitude()+ ","+ location.getLongitude());
+                //发起反编码查询
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                myReverseGeoCodeOption.location(latLng);
+                mSearch.reverseGeoCode(myReverseGeoCodeOption);
+            }
+        };
+
+        private OnGetGeoCoderResultListener geoCoderListener = new OnGetGeoCoderResultListener() {
+            public void onGetGeoCodeResult(GeoCodeResult result) {
+                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+                    //没有检索到结果
+                }
+                //获取地理编码结果
+            }
+
+            @Override
+            public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+                    //没有找到检索结果
+                    loc.describe = "无地址信息";
+                    loc.data = new double[]{-1, -1};
+                }
+                else{
+                    //Log.e("MY", "1:"+result.getAddress());
+                    //Log.e("MY", "2:"+result.getSematicDescription());
+                    loc.describe =  ( result.getAddress() + result.getSematicDescription() );
+                    //Log.e("MY", loc.describe);
+                    loc.data = new double[]{result.getLocation().latitude, result.getLocation().longitude};
+                }
+            }
+        };
+
+        void start(){
+            //Log.e("MY", "-2 client"+ client.toString());
+            //Log.e("MY", "-2 serviceID"+ serviceId);
+            client.queryRealtimeLoc(serviceId, entityListener);
+        }
+
+    }
+
+    void getLoc(MyLocation loc){
+        LocTools locTools = new LocTools(loc);
+        locTools.start();
+    }
+
+    double[] subTime(Date s, Date e){
+        long time = e.getTime() - s.getTime();
+        time/=1000;
+        double[] d = new double[3];
+        d[2] = time % 60;
+        time/=60;
+        d[1] = time % 60;
+        time/=60;
+        d[0] = time;
+        return d;
+    }
+
+    void queryDistanceOFSubTrip(final SubTrip t){
+        Date s = t.sDate;
+        Date e = t.eDate;
+
+        client.queryDistance(serviceId, entityName,
+                1, "need_denoise=1,need_vacuate=1,need_mapmatch=0",
+                "no_supplement",
+                (int)(s.getTime() / 1000), (int)(e.getTime() / 1000),
+                new OnTrackListener() {
+                    @Override
+                    public void onRequestFailedCallback(String s) {
+
+                    }
+
+                    public void onQueryDistanceCallback(String message){
+                        try {
+                            JSONObject obj = new JSONObject(message);
+                            t.distance = obj.getDouble("distance");
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                }
+        );
+    }
+
+}
+
+class Trip {
+    private String userId;
+    private int id = -1;
+    private Date date = new Date();
+    private TravelPurpose purpose;
+    private ArrayList<SubTrip> children = new ArrayList<>();
+    private MyLocation sLocation = new MyLocation();
+    private MyLocation eLocation = new MyLocation();
+    //public String sLoc = null;
+    //public String eLoc = null;
+    //public double[] sLocData = null;
+    //public double[] eLocData = null;
+    private Date sDate = new Date();
+    private Date eDate;
+    private int waysCount = 0;
+    private double[] deltaTime;
+
+    private Tools tools;
+
+
+    public Trip(User user, TravelPurpose pur, Tools in_tools, TravelWay way){
+        userId = user.getId();
+        id = user.AddTripNum();
+        purpose = pur;
+        tools = in_tools;
+        tools.getLoc(sLocation);
+
+        addSubTrip(way);
+    }
+
+    private void addSubTrip(TravelWay way){
+        SubTrip child = new SubTrip();
+        //init
+        child.id = children.size();
+        child.way.c = way.c;
+        tools.getLoc(child.sLocation);
+
+        //add
+        children.add(child);
+    }
+
+    private void completeLastSubTrip(){
+        SubTrip child = children.get(children.size()-1);
+        tools.getLoc(child.eLocation);
+        child.eDate = new Date();
+        child.deltaTime = tools.subTime(child.sDate, child.eDate);
+        tools.queryDistanceOFSubTrip(child);
+    }
+
+    void modeChange(TravelWay way){
+        completeLastSubTrip();
+        addSubTrip(way);
+        Log.e("MY", "mode change complete");
+        Log.e("MY", children.toString());
+    }
+
+    void stopTrip(){
+        completeLastSubTrip();
+        eDate = new Date();
+        deltaTime = tools.subTime(sDate, eDate);
+        waysCount = countWays();
+        tools.getLoc(eLocation);
+    }
+
+    private int countWays(){
+        HashSet<SubTrip> set = new HashSet<>();
+        set.addAll(children);
+        return set.size();
+    }
+}
+
+class SubTrip {
+    public int id = -1;
+    public MyLocation sLocation = new MyLocation();
+    public MyLocation eLocation = new MyLocation();
+    //public String sLoc = null;
+    //public String eLoc = null;
+    //public double[] sLocData = null;
+    //public double[] eLocData = null;
+    public Date sDate = new Date();
+    public Date eDate;
+    public TravelWay way = new TravelWay();
+    public double[] deltaTime;
+    public double distance = 0;
+}
+
+class User{
+    private String areaId;
+    private String id;
+    private int maxTripNum = 0;
+
+    User(String in_areaId, String in_id, int in_maxTripNum){
+        areaId = in_areaId;
+        id = in_id;
+        maxTripNum = in_maxTripNum;
+    }
+
+    public String getId(){
+        return id;
+    }
+    public int getMaxTripNum(){
+        return maxTripNum;
+    }
+    int AddTripNum(){
+        return maxTripNum++;
+    }
+}
+
+class MyLocation {
+    public double[] data;
+    public String describe;
+}
+
+
+

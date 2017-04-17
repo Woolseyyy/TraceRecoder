@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="BaiduTraceSDK_v2_1_16">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/BaiduTraceSDK_v2_1_16.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
