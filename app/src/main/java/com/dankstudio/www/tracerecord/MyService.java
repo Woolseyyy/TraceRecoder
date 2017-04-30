@@ -3,14 +3,18 @@ package com.dankstudio.www.tracerecord;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Binder;
 import android.os.IBinder;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.*;
 import com.baidu.trace.*;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +33,20 @@ public class MyService extends Service {
     private int packInterval = 10;// 打包周期
     private int protocolType = 1;// http协议类型
 
+
+    //实时查询轨迹参数
+    int simpleReturn = 0;// 是否返回精简结果
+    int isProcessed = 0; // 是否纠偏
+    String processOption = null;// 纠偏选项
+    int startTime = (int)(System.currentTimeMillis()/1000);;// 开始时间
+    int pageSize = 5000;// 分页大小
+    int pageIndex = 1;// 分页索引
+
+    //map draw
+    BaiduMap mBaiduMap;
+    int[] colors = new int[]{Color.BLUE, Color.GREEN, Color.RED, Color.YELLOW};
+    int colorNum = 4;
+    int colorIndex = 0;
 
     private Trace trace;//实例化轨迹服务
     private LBSTraceClient client;//实例化轨迹服务客户端
@@ -65,6 +83,8 @@ public class MyService extends Service {
         traceInit();
 
         dataUpdate();
+
+        startTime = (int)(System.currentTimeMillis()/1000);// 开始时间
     }
 
     //init
@@ -99,6 +119,15 @@ public class MyService extends Service {
     public void modeChange(TravelWay way){
         Log.e("MY", "enter modeChange:"+way);
         trip.modeChange(way);
+        colorChange();
+    }
+
+    private void colorChange(){
+        colorIndex = (colorIndex+1)%colorNum;
+    }
+
+    private int getColor(){
+        return colors[colorIndex];
     }
 
     public void start(TravelPurpose purpose, TravelWay way){
@@ -108,7 +137,6 @@ public class MyService extends Service {
         Tools tools = new Tools(client, serviceId, entityName);
         trip = new Trip(user, purpose, tools, way);
 
-        mapRefresh();//地图更新
     }
     public void stop(){
         trip.stopTrip();
@@ -116,8 +144,85 @@ public class MyService extends Service {
 
     }
 
-    private void mapRefresh(){
-        //todo
+    public void setMap(BaiduMap in){
+        mBaiduMap = in;
+    }
+
+    /*private OnTrackListener trackListenerR = new OnTrackListener() {
+        public void onQueryHistoryTrackCallback(String message) {
+            Log.e("MY", "Get Track!");
+            JSONObject data = null;
+            try {
+                data = new JSONObject(message);
+                JSONObject endPoint = data. getJSONObject ("end_point");
+                //更新startTime，在当前查询的最后一个点的时间戳上加1，作为下一次查询的开始时间
+                startTime = endPoint.getInt("loc_time") + 1;
+
+                List<LatLng> pointsD = new ArrayList<LatLng>();
+                JSONArray points = data.getJSONArray("points");
+                for(int i=0; i<points.length(); i++){
+                    JSONObject temp = points.getJSONObject(i);
+                    JSONArray location = temp.getJSONArray("location");
+                    pointsD.add(new LatLng(
+                            location.getDouble(0),
+                            location.getDouble(1)
+                    ));
+                }
+                PolylineOptions options = new PolylineOptions().color(getColor()).points(pointsD).width(15);
+                mBaiduMap.addOverlay(options);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onRequestFailedCallback(String s) {
+            Log.e("MY", "request trace failed!");
+        }
+    };*/
+
+    public void queryHistoryTrack() {
+        // 结束时间
+        int endTime = (int)(System.currentTimeMillis()/1000);
+        // 查询新增的轨迹
+        //client.queryHistoryTrack(serviceId , entityName, simpleReturn, isProcessed,
+        //        processOption, startTime, endTime, pageSize, pageIndex, trackListenerR);
+        client.queryHistoryTrack(serviceId , entityName, simpleReturn, isProcessed,
+                processOption, startTime, endTime, pageSize, pageIndex,
+                new OnTrackListener() {
+                    public void onQueryHistoryTrackCallback(String message) {
+                        Log.e("MY", "Get Track!");
+                        JSONObject data = null;
+                        try {
+                            data = new JSONObject(message);
+                            JSONObject endPoint = data. getJSONObject ("end_point");
+                            //更新startTime，在当前查询的最后一个点的时间戳上加1，作为下一次查询的开始时间
+                            startTime = endPoint.getInt("loc_time") + 1;
+
+                            List<LatLng> pointsD = new ArrayList<LatLng>();
+                            JSONArray points = data.getJSONArray("points");
+                            for(int i=0; i<points.length(); i++){
+                                JSONObject temp = points.getJSONObject(i);
+                                JSONArray location = temp.getJSONArray("location");
+                                pointsD.add(new LatLng(
+                                        location.getDouble(0),
+                                        location.getDouble(1)
+                                ));
+                            }
+                            PolylineOptions options = new PolylineOptions().color(getColor()).points(pointsD).width(15);
+                            mBaiduMap.addOverlay(options);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onRequestFailedCallback(String s) {
+                        Log.e("MY", "request trace failed!");
+                    }
+                });
     }
 
 

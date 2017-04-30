@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     MapView mMapView = null;
     Button btn_start;
     Button btn_modeChange;
+
+    BaiduMap mBaiduMap;
 
     //辅助参数
     boolean ifStart = false;
@@ -39,15 +42,30 @@ public class MainActivity extends AppCompatActivity {
         btn_start = (Button) findViewById(R.id.switcher);
         btn_modeChange = (Button) findViewById(R.id.mode);
 
+        //map init
+        mBaiduMap = mMapView.getMap();
+        //myService.setMap(mBaiduMap);
+
         //listener
         SetListener();
     }
 
+    class RefreshMap extends Thread{
+        public void run(){
+            while (true){
+                myService.queryHistoryTrack();
+            }
+        }
+    }
+
     private void SetListener(){
+
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!ifStart){
+
+
                     wayMenuPurpose = 1;
                     showPurpose(view);
 
@@ -61,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
                     myService.stop();
                     btn_start.setText("Start");
                     ifStart = !ifStart;
+                    myService.setMap(mBaiduMap);
+                    myService.queryHistoryTrack();
                 }
             }
         });
@@ -107,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
                     myService.start(purpose, way);
                     btn_start.setText("Stop");
                     ifStart = !ifStart;
+
+                    RefreshMap refreshMap = new RefreshMap();
+                    //refreshMap.start();
                 }
                 else if(wayMenuPurpose==2)//mode change
                 {
