@@ -8,22 +8,28 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Button;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.*;
 import com.baidu.trace.*;
+import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.io.IOException;
 import java.util.*;
 
 public class MyService extends Service {
     private Trip trip;
     private User user;
+
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    OkHttpClient okHttpClient = new OkHttpClient();
 
     //轨迹参数
     private long serviceId  = 138084;//鹰眼服务ID
@@ -80,17 +86,15 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        traceInit();
+        entityName = getImei(getApplicationContext());  //手机Imei值的获取，用来充当实体名
 
-        dataUpdate();
+        traceInit();
 
         startTime = (int)(System.currentTimeMillis()/1000);// 开始时间
     }
 
     //init
     private void traceInit(){
-        entityName = getImei(getApplicationContext());  //手机Imei值的获取，用来充当实体名
-
         client = new LBSTraceClient(getApplicationContext()); //实例化轨迹客户端
         trace = new Trace(getApplicationContext(), serviceId, entityName, traceType);//实例化轨迹服务
 
@@ -98,9 +102,42 @@ public class MyService extends Service {
         client. setLocationMode(LocationMode.High_Accuracy); // 设置定位模式
         client. setProtocolType (protocolType); // 设置http协议类型
     }
-    private void dataUpdate(){
-        //todo
-        user = new User("123", "123", 1);
+    public void dataUpdate(final MainActivity activity){
+        try {
+            get("http://192.168.137.1:3000/user?id=" + entityName,
+                    new Callback()
+                    {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.e("MY", "request error!");
+                            user = new User("", entityName, 0);
+                            e.printStackTrace();
+                            activity.btnStatue = 0;
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String result = response.body().string();
+                            JSONObject jsonUser = null;
+                            String areaID ="";
+                            String id =entityName;
+                            int maxTripNum = 0;
+                            try {
+                                jsonUser = new JSONObject(result).getJSONObject("body");
+                                areaID = jsonUser.getString("areaID");
+                                id = jsonUser.getString("id");
+                                maxTripNum = jsonUser.getInt("maxTripNum");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            user = new User(areaID, id, maxTripNum);
+                            activity.btnStatue = 0;
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //connect using binder
@@ -114,6 +151,40 @@ public class MyService extends Service {
     public IBinder onBind(Intent intent) {
         return binder;
     }
+
+    void post(String url, String json) throws IOException {
+        Log.e("MY", url);
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        //new call
+        Call call =okHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(new Callback()
+        {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+            }
+        });
+    }
+
+    void get(String url, Callback cb) throws IOException {
+        Request request = new Request.Builder().url(url).build();
+        //new call
+        Call call =okHttpClient.newCall(request);
+        //请求加入调度
+        call.enqueue(cb);
+    }
+
+
 
     //api
     public void modeChange(TravelWay way){
@@ -141,6 +212,28 @@ public class MyService extends Service {
     public void stop(){
         trip.stopTrip();
         client.stopTrace(trace,stopTraceListener); //停止轨迹服务
+    }
+
+    public void sendToServicer(){
+        //send trip and change the user
+        JSONObject tripJson = trip.toJson();
+        JSONObject userJson = user.toJson();
+        JSONObject body = new JSONObject();
+
+        try {
+            body.put("user", userJson);
+            body.put("trip", tripJson);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //connect
+        try {
+            post("http://192.168.137.1:3000/save", body.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -377,6 +470,7 @@ class Trip {
     private Date eDate;
     private int waysCount = 0;
     private double[] deltaTime;
+    public double distance = 0;
 
     private Tools tools;
 
@@ -422,6 +516,7 @@ class Trip {
         eDate = new Date();
         deltaTime = tools.subTime(sDate, eDate);
         waysCount = countWays();
+        distance = computeDistance();
         tools.getLoc(eLocation);
     }
 
@@ -429,6 +524,46 @@ class Trip {
         HashSet<SubTrip> set = new HashSet<>();
         set.addAll(children);
         return set.size();
+    }
+    private int computeDistance(){
+        int dis=0;
+        for (SubTrip child:children) {
+            dis+=child.distance;
+        }
+        return dis;
+    }
+
+    public JSONObject toJson(){
+        JSONObject json = new JSONObject();
+        JSONArray jsonDeltaTime = new JSONArray();
+        JSONArray jsonSubTrips = new JSONArray();
+        for (double num : deltaTime) {
+            try {
+                jsonDeltaTime.put(num);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        for (SubTrip subTrip : children) {
+            jsonSubTrips.put(subTrip.toJson());
+        }
+
+        try {
+            json.put("id", id);
+            json.put("date", date);
+            json.put("purpose", purpose.c);
+            json.put("sDate", sDate);
+            json.put("eDate", eDate);
+            json.put("waysCount", waysCount);
+            json.put("deltaTime", jsonDeltaTime);
+            json.put("sLocation", sLocation.toJson());
+            json.put("eLocation", eLocation.toJson());
+            json.put("children", jsonSubTrips);
+            return json;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
 
@@ -445,6 +580,32 @@ class SubTrip {
     public TravelWay way = new TravelWay();
     public double[] deltaTime;
     public double distance = 0;
+
+    public JSONObject toJson(){
+        JSONObject json = new JSONObject();
+        JSONArray jsonDeltaTime = new JSONArray();
+        for (double num : deltaTime) {
+            try {
+                jsonDeltaTime.put(num);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            json.put("id", id);
+            json.put("sLocation", sLocation.toJson());
+            json.put("eLocation", eLocation.toJson());
+            json.put("sDate", sDate);
+            json.put("eDate", eDate);
+            json.put("way", way.c);
+            json.put("deltaTime", jsonDeltaTime);
+            json.put("distance", distance);
+            return json;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 
 class User{
@@ -467,11 +628,43 @@ class User{
     int AddTripNum(){
         return maxTripNum++;
     }
+    public JSONObject toJson(){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("areaId", areaId);
+            json.put("id", id);
+            json.put("maxTripNum", maxTripNum);
+            return json;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 
 class MyLocation {
     public double[] data;
     public String describe;
+    public JSONObject toJson(){
+        JSONObject json = new JSONObject();
+        JSONArray jsonData = new JSONArray();
+        for (double num : data) {
+            try {
+                jsonData.put(num);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            json.put("data", jsonData);
+            json.put("describe", describe);
+            return json;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
 
 

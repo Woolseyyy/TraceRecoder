@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     BaiduMap mBaiduMap;
 
     //辅助参数
-    boolean ifStart = false;
+    int btnStatue = -1;
     int wayMenuPurpose = 0;//0:无目的 1:start 2:change mode
 
     @Override
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         //listener
         SetListener();
+
     }
 
     class RefreshMap extends Thread{
@@ -63,7 +64,15 @@ public class MainActivity extends AppCompatActivity {
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!ifStart){
+                if(btnStatue==-1){
+                    btnStatue=-1;
+                    btn_start.setText("连接中");
+                    myService.dataUpdate(MainActivity.this);
+                    while (btnStatue==-1){}
+                    btn_start.setText("START");
+                }
+
+                if (btnStatue==0){
 
 
                     wayMenuPurpose = 1;
@@ -71,16 +80,21 @@ public class MainActivity extends AppCompatActivity {
 
                     //after choose way:
                     //btn_start.setText("Stop");
-                    //ifStart = !ifStart;
+                    //btnStatue = !btnStatue;
 
 
                 }
-                else{
+                else if(btnStatue==1){
                     myService.stop();
-                    btn_start.setText("Start");
-                    ifStart = !ifStart;
+                    btn_start.setText("Send");
+                    btnStatue = btnStatue+1;
                     myService.setMap(mBaiduMap);
-                    myService.queryHistoryTrack();
+                    //myService.queryHistoryTrack();
+                }
+                else if(btnStatue==2){
+                    myService.sendToServicer();
+                    btn_start.setText("Start");
+                    btnStatue = 0;
                 }
             }
         });
@@ -126,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     wayMenuPurpose = 0;
                     myService.start(purpose, way);
                     btn_start.setText("Stop");
-                    ifStart = !ifStart;
+                    btnStatue = btnStatue+1;
 
                     RefreshMap refreshMap = new RefreshMap();
                     //refreshMap.start();
@@ -185,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
     private void bindServiceConnection() {
         Intent intent = new Intent(MainActivity.this, MyService.class);
         bindService(intent, sc, this.BIND_AUTO_CREATE);
+
     }
 
 }
