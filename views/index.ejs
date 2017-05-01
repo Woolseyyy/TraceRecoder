@@ -1,16 +1,71 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>查看结果</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
   <body>
-    <table>
+    <table class="table table-bordered">
       <tbody>
       <tr>
-        <td>123</td>
-        <td>123</td>
+        <th>时间</th>
+        <th>用户ID</th>
+        <th>第几次出行</th>
+        <th>出行段</th>
+        <th>出行目的</th>
+        <th>出发地点</th>
+        <th>到达地点</th>
+        <th>出发时刻</th>
+        <th>到达时刻</th>
+        <th>交通方式总数</th>
+        <th>交通方式编号</th>
+        <th>用时</th>
+        <th>出行距离</th>
+        <th>停车位置</th>
       </tr>
+
+      <% users.forEach(function(user){ %>
+      <% user.trip.forEach(function(trip){ %>
+      <tr class="trip-tr">
+        <td><%= trip.date %></td>
+        <td><%= user.id %></td>
+        <td><%= trip.id %></td>
+        <td> </td>
+        <td><%= trip.purpose %></td>
+        <td><%= trip.sLocation %></td>
+        <td><%= trip.eLocation %></td>
+        <td><%= trip.sDate %></td>
+        <td><%= trip.eDate %></td>
+        <td><%= trip.waysCount %></td>
+        <td> </td>
+        <td><%= trip.deltaTime[0] + ":" + trip.deltaTime[1] + ":" + trip.deltaTime[2]%></td>
+        <td><%= trip.distance %></td>
+        <td> </td>
+      </tr>
+      <% trip.children.forEach(function(child){ %>
+      <tr>
+        <td><%= trip.date %></td>
+        <td><%= user.id %></td>
+        <td><%= trip.id %></td>
+        <td><%= child.id %></td>
+        <td><%= trip.purpose %></td>
+        <td><%= child.sLocation %></td>
+        <td><%= child.eLocation %></td>
+        <td><%= child.sDate %></td>
+        <td><%= child.eDate %></td>
+        <td> </td>
+        <td><%= child.way %></td>
+        <td><%= child.deltaTime[0] + ":" + child.deltaTime[1] + ":" + child.deltaTime[2]%></td>
+        <td><%= child.distance %></td>
+        <td> </td>
+      </tr>
+      <% }) %>
+      <% }) %>
+      <% }) %>
+
       </tbody>
     </table>
   </body>

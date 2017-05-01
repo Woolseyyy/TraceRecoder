@@ -24,6 +24,7 @@ module.exports = mongoose.model('user', new Schema({
         eDate: String,
         waysCount: Number,
         deltaTime:[],
+        distance: Number,
         children:[{
             id: Number,
             sLocation:{

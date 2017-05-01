@@ -4,7 +4,15 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  User.find(null,function(err, users){
+    if(err){
+      res.render('error', { message: '数据库查询错误', error:err });
+    }
+    else {
+      console.log(users);
+      res.render('index', { users:users });
+    }
+  });
 });
 
 router.get('/user', function(req, res, next) {
