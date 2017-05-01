@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.dankstudio.www.tracerecord">
+
     <!-- 这个权限用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <!-- 这个权限用于访问GPS定位 -->
@@ -29,6 +30,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <!-- 用于优化GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -52,13 +54,14 @@
                 android:enabled="true"
                 android:exported="true">
         </service>
-
-
         <service
                 android:name=".MyService"
                 android:enabled="true"
                 android:exported="true">
         </service>
+
+        <activity android:name=".WebActivity">
+        </activity>
     </application>
 
 </manifest>

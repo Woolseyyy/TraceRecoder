@@ -15,8 +15,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:clickable="true"
-            android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+    />
     <Button
             android:text="连接"
             android:layout_width="wrap_content"
@@ -30,4 +29,10 @@
             android:layout_height="wrap_content" android:layout_alignBottom="@+id/switcher"
             android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
             android:layout_marginRight="13dp" android:layout_marginEnd="13dp" android:id="@+id/mode"/>
+    <Button
+            android:text="填写信息"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/switcher" android:layout_alignEnd="@+id/switcher"
+            android:layout_marginTop="12dp" android:id="@+id/info"/>
 </RelativeLayout>

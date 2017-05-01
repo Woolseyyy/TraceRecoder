@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     MapView mMapView = null;
     Button btn_start;
     Button btn_modeChange;
+    Button btn_info;
 
     BaiduMap mBaiduMap;
 
@@ -26,12 +27,16 @@ public class MainActivity extends AppCompatActivity {
     int btnStatue = -1;
     int wayMenuPurpose = 0;//0:无目的 1:start 2:change mode
 
+    Intent webIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //service connect
         bindServiceConnection();
+
+        webIntent = new Intent(MainActivity.this, WebActivity.class);
 
         //sdk init
         SDKInitializer.initialize(getApplicationContext());
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         mMapView = (MapView) findViewById(R.id.bmapView);
         btn_start = (Button) findViewById(R.id.switcher);
         btn_modeChange = (Button) findViewById(R.id.mode);
+        btn_info = (Button) findViewById(R.id.info);
 
         //map init
         mBaiduMap = mMapView.getMap();
@@ -106,6 +112,14 @@ public class MainActivity extends AppCompatActivity {
                 showWay(view, null);
             }
         }));
+
+        btn_info.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                startActivity(webIntent);
+            }
+        });
     }
 
     private void showPurpose(final View view){

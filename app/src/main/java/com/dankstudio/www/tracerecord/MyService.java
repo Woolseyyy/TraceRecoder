@@ -104,7 +104,7 @@ public class MyService extends Service {
     }
     public void dataUpdate(final MainActivity activity){
         try {
-            get("http://192.168.137.1:3000/user?id=" + entityName,
+            get("http://123.206.108.55:3000/user?id=" + entityName,
                     new Callback()
                     {
                         @Override
@@ -229,7 +229,7 @@ public class MyService extends Service {
 
         //connect
         try {
-            post("http://192.168.137.1:3000/save", body.toString());
+            post("http://123.206.108.55:3000/save", body.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
