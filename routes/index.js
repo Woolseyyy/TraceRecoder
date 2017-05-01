@@ -1,5 +1,6 @@
 var express = require('express');
 var User = require('../db/user');
+var Info = require('../db/info');
 var router = express.Router();
 
 /* GET home page. */
@@ -118,5 +119,46 @@ router.post('/save', function(req, res, next) {
     }
   })
 });
+
+router.get('/info', function(req, res, next) {
+  var id = req.query.id;
+  res.render('info', { id:id });
+});
+
+router.post('/info', function(req, res, next) {
+  var form = req.body.form;
+  console.log(form);
+  Info.create(form, function(err){
+    if(err){
+      res.json({
+        code: -1,
+        msg: '新增错误:' + err,
+        body: {}
+      });
+    }
+    else{
+      res.json({
+        code: 0,
+        msg: 'ok',
+        body: {}
+      });
+    }
+  })
+});
+
+router.get('/info/watch', function(req, res, next) {
+  Info.find(null,function(err, info){
+    if(err){
+      res.render('error', { message: '数据库查询错误', error:err });
+    }
+    else {
+      console.log(info);
+      res.render('infoWatch', { infos:info });
+    }
+  });
+});
+
+
+
 
 module.exports = router;

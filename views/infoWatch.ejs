@@ -11,59 +11,35 @@
     <table class="table table-bordered">
       <tbody>
       <tr>
-        <th>时间</th>
-        <th>用户ID</th>
-        <th>第几次出行</th>
-        <th>出行段</th>
-        <th>出行目的</th>
-        <th>出发地点</th>
-        <th>到达地点</th>
-        <th>出发时刻</th>
-        <th>到达时刻</th>
-        <th>交通方式总数</th>
-        <th>交通方式编号</th>
-        <th>用时</th>
-        <th>出行距离</th>
-        <th>停车位置</th>
+        <th>ID</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>宿舍区</th>
+        <th>年级</th>
+        <th>专业大类</th>
+        <th>校内主要出行方式</th>
+        <th>专业名称</th>
+        <th>汽车驾照</th>
+        <th>汽车保有量</th>
+        <th>电动车保有量</th>
+        <th>自行车保有量</th>
       </tr>
 
-      <% users.forEach(function(user){ %>
-      <% user.trip.forEach(function(trip){ %>
-      <tr class="trip-tr">
-        <td><%= trip.date %></td>
-        <td><%= user.id %></td>
-        <td><%= trip.id %></td>
-        <td> </td>
-        <td><%= trip.purpose %></td>
-        <td><%= trip.sLocation %></td>
-        <td><%= trip.eLocation %></td>
-        <td><%= trip.sDate %></td>
-        <td><%= trip.eDate %></td>
-        <td><%= trip.waysCount %></td>
-        <td> </td>
-        <td><%= trip.deltaTime[0] + ":" + trip.deltaTime[1] + ":" + trip.deltaTime[2]%></td>
-        <td><%= trip.distance %></td>
-        <td> </td>
-      </tr>
-      <% trip.children.forEach(function(child){ %>
+      <% infos.forEach(function(info){ %>
       <tr>
-        <td><%= trip.date %></td>
-        <td><%= user.id %></td>
-        <td><%= trip.id %></td>
-        <td><%= child.id %></td>
-        <td><%= trip.purpose %></td>
-        <td><%= child.sLocation %></td>
-        <td><%= child.eLocation %></td>
-        <td><%= child.sDate %></td>
-        <td><%= child.eDate %></td>
-        <td> </td>
-        <td><%= child.way %></td>
-        <td><%= child.deltaTime[0] + ":" + child.deltaTime[1] + ":" + child.deltaTime[2]%></td>
-        <td><%= child.distance %></td>
-        <td> </td>
+        <td><%= info.id %></td>
+        <td><%= info.sex %></td>
+        <td><%= info.year %></td>
+        <td><%= info.area %></td>
+        <td><%= info.grade %></td>
+        <td><%= info.major %></td>
+        <td><%= info.mainWay %></td>
+        <td><%= info.majorName %></td>
+        <td><%= info.has %></td>
+        <td><%= info.carNum %></td>
+        <td><%= info.mobikeNum %></td>
+        <td><%= info.bikeNum %></td>
       </tr>
-      <% }) %>
-      <% }) %>
       <% }) %>
 
       </tbody>
