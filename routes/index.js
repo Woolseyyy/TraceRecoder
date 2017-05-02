@@ -158,6 +158,27 @@ router.get('/info/watch', function(req, res, next) {
   });
 });
 
+router.post('/info/delete', function(req, res, next) {
+  var _id = req.body._id;
+  console.log(_id);
+  Info.remove({_id:_id}, function(err){
+    if(err){
+      res.json({
+        code: -1,
+        msg: '删除错误:' + err,
+        body: {}
+      });
+    }
+    else{
+      res.json({
+        code: 0,
+        msg: 'ok',
+        body: {}
+      });
+    }
+  })
+});
+
 
 
 

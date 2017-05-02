@@ -5,7 +5,6 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
   <body>
     <table class="table table-bordered">
@@ -23,6 +22,7 @@
         <th>汽车保有量</th>
         <th>电动车保有量</th>
         <th>自行车保有量</th>
+        <th>删除</th>
       </tr>
 
       <% infos.forEach(function(info){ %>
@@ -39,10 +39,48 @@
         <td><%= info.carNum %></td>
         <td><%= info.mobikeNum %></td>
         <td><%= info.bikeNum %></td>
+        <td>
+          <button id="<%= info._id %>" class="btn btn-default" >Delete</button>
+        </td>
       </tr>
       <% }) %>
 
       </tbody>
     </table>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+      var infos = JSON.parse('<%- JSON.stringify(infos)%>');
+      console.log(infos);
+      infos.forEach(function(info){
+        $("#"+info._id).click(function(){
+          $.ajax({
+            url: "/info/delete",
+            contentType: 'application/json',
+            type: 'POST',
+            data: JSON.stringify({
+              _id:info._id
+            }),
+            success: function(data) {
+              var code = data.code;
+              if(code<0){
+                alert("失败!");
+              }
+              else{
+                alert("成功");
+                location.reload();
+              }
+              console.log(data);
+            },
+            error: function(xhr, status, err) {
+              alert("失败!");
+            }
+          });
+        })
+      })
+
+    </script>
   </body>
 </html>
