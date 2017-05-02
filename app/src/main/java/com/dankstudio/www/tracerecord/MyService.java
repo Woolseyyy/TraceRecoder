@@ -369,6 +369,7 @@ class Tools{
             public void onReceiveLocation(TraceLocation location){
                 Log.e("MY", "-1:" + location.toString());
                 Log.e("MY", "0:"+location.getLatitude()+ ","+ location.getLongitude());
+                Log.e("MY", "locListenr:"+this);
                 //发起反编码查询
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 myReverseGeoCodeOption.location(latLng);
@@ -390,6 +391,7 @@ class Tools{
                     //没有找到检索结果
                     loc.describe = "无地址信息";
                     loc.data = new double[]{-1, -1};
+                    Log.e("MY", loc.describe);
                 }
                 else{
                     //Log.e("MY", "1:"+result.getAddress());
@@ -397,6 +399,7 @@ class Tools{
                     loc.describe =  ( result.getAddress() + result.getSematicDescription() );
                     //Log.e("MY", loc.describe);
                     loc.data = new double[]{result.getLocation().latitude, result.getLocation().longitude};
+                    Log.e("MY", loc.describe);
                 }
             }
         };
@@ -426,30 +429,54 @@ class Tools{
         return d;
     }
 
-    void queryDistanceOFSubTrip(final SubTrip t){
-        Date s = t.sDate;
-        Date e = t.eDate;
+    class Distance{
+        private SubTrip t;
+        Distance(SubTrip in){
+            t = in;
+        }
 
-        client.queryDistance(serviceId, entityName,
-                1, "need_denoise=1,need_vacuate=1,need_mapmatch=0",
-                "no_supplement",
-                (int)(s.getTime() / 1000), (int)(e.getTime() / 1000),
-                new OnTrackListener() {
-                    @Override
-                    public void onRequestFailedCallback(String s) {
+        private OnTrackListener onTrackListener = new OnTrackListener() {
+            @Override
+            public void onRequestFailedCallback(String s) {
+                Log.e("MY", "distance failed!");
+            }
 
-                    }
+            public void onQueryDistanceCallback(String message){
+                try {
+                    JSONObject obj = new JSONObject(message);
+                    Log.e("MY", ""+obj);
+                    t.distance = obj.getDouble("distance");
+                    //Log.e("MY", ""+t.distance);
+                    //Log.e("MY", "distanceSetT:"+t);
+                    //Log.e("MY", "thisListener:"+this);
 
-                    public void onQueryDistanceCallback(String message){
-                        try {
-                            JSONObject obj = new JSONObject(message);
-                            t.distance = obj.getDouble("distance");
-                        } catch (JSONException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
                 }
-        );
+            }
+        };
+
+        void query(){
+            Date s = t.sDate;
+            Date e = t.eDate;
+
+            //Log.e("MY", "distanceID"+t.id);
+            //Log.e("MY", "listener:" +onTrackListener);
+
+
+            client.setOnTrackListener(onTrackListener);
+
+            client.queryDistance(serviceId, entityName,
+                    1, "need_denoise=1,need_vacuate=1,need_mapmatch=0",
+                    "no_supplement",
+                    (int)(s.getTime() / 1000), (int)(e.getTime() / 1000),null
+            );
+        }
+    }
+
+    void queryDistanceOFSubTrip(SubTrip t){
+        Distance distance = new Distance(t);
+        distance.query();
     }
 
 }
@@ -516,7 +543,7 @@ class Trip {
         eDate = new Date();
         deltaTime = tools.subTime(sDate, eDate);
         waysCount = countWays();
-        distance = computeDistance();
+        //distance = computeDistance();
         tools.getLoc(eLocation);
     }
 
@@ -534,6 +561,7 @@ class Trip {
     }
 
     public JSONObject toJson(){
+        distance = computeDistance();
         JSONObject json = new JSONObject();
         JSONArray jsonDeltaTime = new JSONArray();
         JSONArray jsonSubTrips = new JSONArray();
@@ -559,6 +587,7 @@ class Trip {
             json.put("sLocation", sLocation.toJson());
             json.put("eLocation", eLocation.toJson());
             json.put("children", jsonSubTrips);
+            json.put("distance", distance);
             return json;
         } catch (JSONException e) {
             e.printStackTrace();
