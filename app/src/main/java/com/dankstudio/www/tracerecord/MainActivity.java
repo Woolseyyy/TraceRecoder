@@ -91,11 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 else if(btnStatue==1){
-                    myService.stop();
-                    btn_start.setText("Send");
-                    btnStatue = btnStatue+1;
-                    myService.setMap(mBaiduMap);
-                    //myService.queryHistoryTrack();
+                    showConfirm(view);
                 }
                 else if(btnStatue==2){
                     myService.sendToServicer();
@@ -120,6 +116,32 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(webIntent);
             }
         });
+    }
+
+    private void showConfirm(final View view){
+        PopupMenu menu = new PopupMenu(this,view);
+        menu.getMenuInflater().inflate(R.menu.confirm,menu.getMenu());
+        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                String ans = item.getTitle().toString();
+                if(ans.equals("是")){
+                    myService.stop();
+                    btn_start.setText("Send");
+                    btnStatue = btnStatue+1;
+                    myService.setMap(mBaiduMap);
+                    //myService.queryHistoryTrack();
+                }
+                return true;
+            }
+        });
+        menu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+
+            }
+        });
+        menu.show();
     }
 
     private void showPurpose(final View view){

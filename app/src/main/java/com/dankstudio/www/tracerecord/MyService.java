@@ -675,7 +675,7 @@ class User{
 }
 
 class MyLocation {
-    public double[] data;
+    public double[] data = {0, 0, 0};
     public String describe;
     public JSONObject toJson(){
         JSONObject json = new JSONObject();
