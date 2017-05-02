@@ -35,6 +35,7 @@ class TravelWay {
     public void set(int t){
         c = t;
     }
+    public String getName(){ return  ways[c-1];}
 
 }
 

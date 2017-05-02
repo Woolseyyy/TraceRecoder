@@ -35,4 +35,12 @@
             android:layout_height="wrap_content" android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/switcher" android:layout_alignEnd="@+id/switcher"
             android:layout_marginTop="12dp" android:id="@+id/info"/>
+    <TextView
+            android:text="行程情况"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" android:id="@+id/textView2" android:background="@android:color/darker_gray"
+            android:paddingBottom="20dp" android:paddingEnd="20dp" android:paddingLeft="20dp"
+            android:paddingRight="20dp" android:paddingStart="20dp" android:paddingTop="20dp"
+            android:textColor="@android:color/background_light"/>
 </RelativeLayout>

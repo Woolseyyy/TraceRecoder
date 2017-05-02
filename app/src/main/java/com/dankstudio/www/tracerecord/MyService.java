@@ -140,6 +140,10 @@ public class MyService extends Service {
         }
     }
 
+    public String hint(){
+        return trip.hint();
+    }
+
     //connect using binder
     private final IBinder binder = new MyBinder();
     class MyBinder extends Binder {
@@ -501,6 +505,14 @@ class Trip {
 
     private Tools tools;
 
+    String hint(){
+        SubTrip subTrip = children.get(children.size()-1);
+        double[] time = tools.subTime(subTrip.sDate, new Date());
+        String res = "目前所在行程段：" + subTrip.id + "\n"+
+                "交通方式：" + subTrip.way.getName() + "\n"+
+                "已进行：" + (int)time[0] + " : " + (int)time[1] + " : " + (int)time[2];
+        return res;
+    }
 
     public Trip(User user, TravelPurpose pur, Tools in_tools, TravelWay way, ParkingPlace place){
         userId = user.getId();

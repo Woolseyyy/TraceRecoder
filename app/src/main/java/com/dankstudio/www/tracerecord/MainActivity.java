@@ -3,13 +3,16 @@ package com.dankstudio.www.tracerecord;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
@@ -20,12 +23,14 @@ public class MainActivity extends AppCompatActivity {
     Button btn_start;
     Button btn_modeChange;
     Button btn_info;
+    TextView textview;
 
     BaiduMap mBaiduMap;
 
     //辅助参数
     int btnStatue = -1;
     int wayMenuPurpose = 0;//0:无目的 1:start 2:change mode
+    int mySignal = 1;
 
     Intent webIntent;
 
@@ -47,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         btn_start = (Button) findViewById(R.id.switcher);
         btn_modeChange = (Button) findViewById(R.id.mode);
         btn_info = (Button) findViewById(R.id.info);
+        textview = (TextView)findViewById(R.id.textView2);
+        textview.getBackground().setAlpha(200);
 
         //map init
         mBaiduMap = mMapView.getMap();
@@ -127,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 String ans = item.getTitle().toString();
                 if(ans.equals("是")){
                     myService.stop();
+                    mySignal = 0;
                     btn_start.setText("Send");
                     btnStatue = btnStatue+1;
                     myService.setMap(mBaiduMap);
@@ -183,6 +191,9 @@ public class MainActivity extends AppCompatActivity {
                         btn_start.setText("Stop");
                         btnStatue = btnStatue+1;
 
+                        mySignal = 1;
+                        new Thread(mRunnable).start();
+
                         RefreshMap refreshMap = new RefreshMap();
                         //refreshMap.start();
                     }
@@ -217,6 +228,8 @@ public class MainActivity extends AppCompatActivity {
                     myService.start(purpose, way, place);
                     btn_start.setText("Stop");
                     btnStatue = btnStatue+1;
+                    mySignal = 1;
+                    new Thread(mRunnable).start();
 
                     RefreshMap refreshMap = new RefreshMap();
                     //refreshMap.start();
@@ -277,6 +290,30 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, MyService.class);
         bindService(intent, sc, this.BIND_AUTO_CREATE);
 
+    }
+
+    private Runnable mRunnable = new Runnable() {
+        public void run() {
+            while(mySignal==1) {
+                try {
+                    Thread.sleep(1000);
+                    mHandler.sendMessage(mHandler.obtainMessage());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
+    private Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            refreshUI();
+        }
+    };
+
+    private void refreshUI() {
+        textview.setText(myService.hint());
     }
 
 }
