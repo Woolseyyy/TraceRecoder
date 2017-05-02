@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/place_1"
+            android:title="车库"
+    />
+    <item
+            android:id="@+id/place_2"
+            android:title="地面停车位"
+    />
+    <item
+            android:id="@+id/place_3"
+            android:title="无停车位"
+    />
+    <item
+            android:id="@+id/place_4"
+            android:title="宿舍楼内"
+    />
+    <item
+            android:id="@+id/place_5"
+            android:title="实验室"
+    />
+    <item
+            android:id="@+id/place_6"
+            android:title="其他"
+    />
+</menu>

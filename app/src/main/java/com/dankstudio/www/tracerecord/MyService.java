@@ -187,9 +187,9 @@ public class MyService extends Service {
 
 
     //api
-    public void modeChange(TravelWay way){
+    public void modeChange(TravelWay way, ParkingPlace place){
         Log.e("MY", "enter modeChange:"+way);
-        trip.modeChange(way);
+        trip.modeChange(way, place);
         colorChange();
     }
 
@@ -201,12 +201,12 @@ public class MyService extends Service {
         return colors[colorIndex];
     }
 
-    public void start(TravelPurpose purpose, TravelWay way){
+    public void start(TravelPurpose purpose, TravelWay way, ParkingPlace place){
         client.startTrace(trace, startTraceListener);//开启轨迹服务
 
         //new trip
         Tools tools = new Tools(client, serviceId, entityName);
-        trip = new Trip(user, purpose, tools, way);
+        trip = new Trip(user, purpose, tools, way, place);
 
     }
     public void stop(){
@@ -502,21 +502,22 @@ class Trip {
     private Tools tools;
 
 
-    public Trip(User user, TravelPurpose pur, Tools in_tools, TravelWay way){
+    public Trip(User user, TravelPurpose pur, Tools in_tools, TravelWay way, ParkingPlace place){
         userId = user.getId();
         id = user.AddTripNum();
         purpose = pur;
         tools = in_tools;
         tools.getLoc(sLocation);
 
-        addSubTrip(way);
+        addSubTrip(way, place);
     }
 
-    private void addSubTrip(TravelWay way){
+    private void addSubTrip(TravelWay way, ParkingPlace place){
         SubTrip child = new SubTrip();
         //init
         child.id = children.size();
         child.way.c = way.c;
+        child.place.c = place.c;
         tools.getLoc(child.sLocation);
 
         //add
@@ -531,9 +532,9 @@ class Trip {
         tools.queryDistanceOFSubTrip(child);
     }
 
-    void modeChange(TravelWay way){
+    void modeChange(TravelWay way, ParkingPlace place){
         completeLastSubTrip();
-        addSubTrip(way);
+        addSubTrip(way, place);
         Log.e("MY", "mode change complete");
         Log.e("MY", children.toString());
     }
@@ -607,6 +608,7 @@ class SubTrip {
     public Date sDate = new Date();
     public Date eDate;
     public TravelWay way = new TravelWay();
+    public ParkingPlace place = new ParkingPlace();
     public double[] deltaTime;
     public double distance = 0;
 
@@ -627,6 +629,7 @@ class SubTrip {
             json.put("sDate", sDate);
             json.put("eDate", eDate);
             json.put("way", way.c);
+            json.put("place", place.c);
             json.put("deltaTime", jsonDeltaTime);
             json.put("distance", distance);
             return json;

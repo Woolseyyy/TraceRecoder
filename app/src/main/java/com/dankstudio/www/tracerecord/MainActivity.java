@@ -142,17 +142,57 @@ public class MainActivity extends AppCompatActivity {
         menu.show();
     }
 
-    private void showWay(View view, final TravelPurpose purpose){
+    private void showWay(final View view, final TravelPurpose purpose){
         PopupMenu menu = new PopupMenu(this,view);
         menu.getMenuInflater().inflate(R.menu.way,menu.getMenu());
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 TravelWay way = new TravelWay(item.getTitle().toString());
+                if(way.c==2||way.c==3||way.c==4){
+                    showParkingPlace(view, purpose, way);
+                    return true;
+                }
+                else{
+                    if(wayMenuPurpose==1)//start
+                    {
+                        wayMenuPurpose = 0;
+                        myService.start(purpose, way, new ParkingPlace());
+                        btn_start.setText("Stop");
+                        btnStatue = btnStatue+1;
+
+                        RefreshMap refreshMap = new RefreshMap();
+                        //refreshMap.start();
+                    }
+                    else if(wayMenuPurpose==2)//mode change
+                    {
+                        wayMenuPurpose = 0;
+                        myService.modeChange(way, new ParkingPlace());
+                    }
+                    return true;
+                }
+            }
+        });
+        menu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+
+            }
+        });
+        menu.show();
+    }
+
+    private void showParkingPlace(View view, final TravelPurpose purpose, final TravelWay way){
+        PopupMenu menu = new PopupMenu(this,view);
+        menu.getMenuInflater().inflate(R.menu.place,menu.getMenu());
+        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                ParkingPlace place = new ParkingPlace(item.getTitle().toString());
                 if(wayMenuPurpose==1)//start
                 {
                     wayMenuPurpose = 0;
-                    myService.start(purpose, way);
+                    myService.start(purpose, way, place);
                     btn_start.setText("Stop");
                     btnStatue = btnStatue+1;
 
@@ -162,9 +202,10 @@ public class MainActivity extends AppCompatActivity {
                 else if(wayMenuPurpose==2)//mode change
                 {
                     wayMenuPurpose = 0;
-                    myService.modeChange(way);
+                    myService.modeChange(way, place);
                 }
                 return true;
+
             }
         });
         menu.setOnDismissListener(new PopupMenu.OnDismissListener() {
