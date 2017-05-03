@@ -6,6 +6,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
   </head>
   <body>
   <div>
@@ -123,6 +124,14 @@
     <button class="btn btn-default" id="submit">Submit</button>
   </div>
 
+  <div id="success" class="myalert">
+    添加成功
+  </div>
+
+  <div id="failed" class="myalert">
+    添加失败
+  </div>
+
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -152,18 +161,19 @@
         success: function(data) {
           var code = data.code;
           if(code<0){
-            alert("失败!");
+            $("#failed").show();
           }
           else{
-            window.location.href="/info/success";
+            $("#success").show();
           }
           console.log(data);
         },
         error: function(xhr, status, err) {
-          alert("失败!");
+          $("#failed").show();
         }
       });
     })
+
   </script>
   </body>
 </html>
