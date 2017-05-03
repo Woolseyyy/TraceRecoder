@@ -146,6 +146,14 @@ router.post('/info', function(req, res, next) {
   })
 });
 
+router.get('/info/success', function(req, res, next) {
+  res.render('success');
+});
+
+router.get('/info/error', function(req, res, next) {
+  res.render('error',{message:"添加失败", error:{status:"", stack:""}});
+});
+
 router.get('/info/watch', function(req, res, next) {
   Info.find(null,function(err, info){
     if(err){
