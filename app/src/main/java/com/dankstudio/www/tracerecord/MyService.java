@@ -170,12 +170,12 @@ public class MyService extends Service {
         {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                Log.e("MY", "send failed!"+e);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
+                Log.e("MY", "send success!"+response);
             }
         });
     }
