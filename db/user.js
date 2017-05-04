@@ -9,7 +9,7 @@ module.exports = mongoose.model('user', new Schema({
     id: {type:String, unique:true},
     maxTripNum : Number,
     trip:[{
-        id: {type:Number, unique:true},
+        id: Number,
         date: String,
         purpose: Number,
         sLocation:{
