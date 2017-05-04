@@ -144,6 +144,8 @@ public class MyService extends Service {
         return trip.hint();
     }
 
+    public boolean ifParking(){return trip.ifParking();}
+
     //connect using binder
     private final IBinder binder = new MyBinder();
     class MyBinder extends Binder {
@@ -205,16 +207,16 @@ public class MyService extends Service {
         return colors[colorIndex];
     }
 
-    public void start(TravelPurpose purpose, TravelWay way, ParkingPlace place){
+    public void start(TravelPurpose purpose, TravelWay way){
         client.startTrace(trace, startTraceListener);//开启轨迹服务
 
         //new trip
         Tools tools = new Tools(client, serviceId, entityName);
-        trip = new Trip(user, purpose, tools, way, place);
+        trip = new Trip(user, purpose, tools, way);
 
     }
-    public void stop(){
-        trip.stopTrip();
+    public void stop(ParkingPlace place){
+        trip.stopTrip(place);
         client.stopTrace(trace,stopTraceListener); //停止轨迹服务
     }
 
@@ -514,45 +516,49 @@ class Trip {
         return res;
     }
 
-    public Trip(User user, TravelPurpose pur, Tools in_tools, TravelWay way, ParkingPlace place){
+    public Trip(User user, TravelPurpose pur, Tools in_tools, TravelWay way){
         userId = user.getId();
         id = user.AddTripNum();
         purpose = pur;
         tools = in_tools;
         tools.getLoc(sLocation);
 
-        addSubTrip(way, place);
+        addSubTrip(way);
     }
 
-    private void addSubTrip(TravelWay way, ParkingPlace place){
+    public boolean ifParking(){
+        return children.get(children.size()-1).way.ifParking();
+    }
+
+    private void addSubTrip(TravelWay way){
         SubTrip child = new SubTrip();
         //init
         child.id = children.size();
         child.way.c = way.c;
-        child.place.c = place.c;
         tools.getLoc(child.sLocation);
 
         //add
         children.add(child);
     }
 
-    private void completeLastSubTrip(){
+    private void completeLastSubTrip(ParkingPlace place){
         SubTrip child = children.get(children.size()-1);
         tools.getLoc(child.eLocation);
+        child.place.c = place.c;
         child.eDate = new Date();
         child.deltaTime = tools.subTime(child.sDate, child.eDate);
         tools.queryDistanceOFSubTrip(child);
     }
 
     void modeChange(TravelWay way, ParkingPlace place){
-        completeLastSubTrip();
-        addSubTrip(way, place);
+        completeLastSubTrip(place);
+        addSubTrip(way);
         Log.e("MY", "mode change complete");
         Log.e("MY", children.toString());
     }
 
-    void stopTrip(){
-        completeLastSubTrip();
+    void stopTrip(ParkingPlace place){
+        completeLastSubTrip(place);
         eDate = new Date();
         deltaTime = tools.subTime(sDate, eDate);
         waysCount = countWays();

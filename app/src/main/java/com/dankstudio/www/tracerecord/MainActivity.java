@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     //辅助参数
     int btnStatue = -1;
     int wayMenuPurpose = 0;//0:无目的 1:start 2:change mode
-    int mySignal = 1;
+    int parkingPurpose = 0;//0:不启动 1:modechange 2:stop
+    static int mySignal = 1;
 
     Intent webIntent;
 
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     btn_start.setText("START");
                 }
 
-                if (btnStatue==0){
+                if (btnStatue==0){//start
 
 
                     wayMenuPurpose = 1;
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }
-                else if(btnStatue==1){
+                else if(btnStatue==1){//stop
                     showConfirm(view);
                 }
                 else if(btnStatue==2){
@@ -111,8 +112,16 @@ public class MainActivity extends AppCompatActivity {
         btn_modeChange.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                wayMenuPurpose = 2;
-                showWay(view, null);
+
+                if(myService.ifParking()){
+                    parkingPurpose = 1;
+                    showParkingPlace(view);
+                }
+                else{
+                    wayMenuPurpose = 2;
+                    showWay(view, null, new ParkingPlace());
+                }
+
             }
         }));
 
@@ -133,12 +142,18 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 String ans = item.getTitle().toString();
                 if(ans.equals("是")){
-                    myService.stop();
-                    mySignal = 0;
-                    btn_start.setText("Send");
-                    btnStatue = btnStatue+1;
-                    myService.setMap(mBaiduMap);
-                    //myService.queryHistoryTrack();
+                    if(myService.ifParking()){
+                        parkingPurpose = 2;
+                        showParkingPlace(view);
+                    }
+                    else{
+                        myService.stop(new ParkingPlace());
+                        mySignal = 0;
+                        btn_start.setText("Send");
+                        btnStatue = btnStatue+1;
+                        myService.setMap(mBaiduMap);
+                        //myService.queryHistoryTrack();
+                    }
                 }
                 return true;
             }
@@ -159,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 TravelPurpose purpose = new TravelPurpose(item.getTitle().toString());
-                showWay(view, purpose);
+                showWay(view, purpose, null);
                 return true;
             }
         });
@@ -172,38 +187,34 @@ public class MainActivity extends AppCompatActivity {
         menu.show();
     }
 
-    private void showWay(final View view, final TravelPurpose purpose){
+    private void showWay(final View view, final TravelPurpose purpose, final ParkingPlace place){
         PopupMenu menu = new PopupMenu(this,view);
         menu.getMenuInflater().inflate(R.menu.way,menu.getMenu());
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 TravelWay way = new TravelWay(item.getTitle().toString());
-                if(way.c==2||way.c==3||way.c==4){
-                    showParkingPlace(view, purpose, way);
-                    return true;
-                }
-                else{
-                    if(wayMenuPurpose==1)//start
-                    {
-                        wayMenuPurpose = 0;
-                        myService.start(purpose, way, new ParkingPlace());
-                        btn_start.setText("Stop");
-                        btnStatue = btnStatue+1;
 
-                        mySignal = 1;
-                        new Thread(mRunnable).start();
+                if(wayMenuPurpose==1)//start
+                {
+                    wayMenuPurpose = 0;
+                    myService.start(purpose, way);
+                    btn_start.setText("Stop");
+                    btnStatue = btnStatue+1;
 
-                        RefreshMap refreshMap = new RefreshMap();
-                        //refreshMap.start();
-                    }
-                    else if(wayMenuPurpose==2)//mode change
-                    {
-                        wayMenuPurpose = 0;
-                        myService.modeChange(way, new ParkingPlace());
-                    }
-                    return true;
+                    mySignal = 1;
+                    new Thread(mRunnable).start();
+
+                    RefreshMap refreshMap = new RefreshMap();
+                    //refreshMap.start();
                 }
+                else if(wayMenuPurpose==2)//mode change
+                {
+                    wayMenuPurpose = 0;
+                    myService.modeChange(way, place);
+                }
+                return true;
+
             }
         });
         menu.setOnDismissListener(new PopupMenu.OnDismissListener() {
@@ -215,29 +226,26 @@ public class MainActivity extends AppCompatActivity {
         menu.show();
     }
 
-    private void showParkingPlace(View view, final TravelPurpose purpose, final TravelWay way){
+    private void showParkingPlace(final View view){
         PopupMenu menu = new PopupMenu(this,view);
         menu.getMenuInflater().inflate(R.menu.place,menu.getMenu());
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 ParkingPlace place = new ParkingPlace(item.getTitle().toString());
-                if(wayMenuPurpose==1)//start
-                {
-                    wayMenuPurpose = 0;
-                    myService.start(purpose, way, place);
-                    btn_start.setText("Stop");
-                    btnStatue = btnStatue+1;
-                    mySignal = 1;
-                    new Thread(mRunnable).start();
-
-                    RefreshMap refreshMap = new RefreshMap();
-                    //refreshMap.start();
+                if(parkingPurpose==1) {//mode change
+                    parkingPurpose = 0;
+                    wayMenuPurpose = 2;
+                    showWay(view, null, place);
                 }
-                else if(wayMenuPurpose==2)//mode change
-                {
-                    wayMenuPurpose = 0;
-                    myService.modeChange(way, place);
+                else if(parkingPurpose==2){//stop
+                    parkingPurpose = 0;
+                    myService.stop(place);
+                    mySignal = 0;
+                    btn_start.setText("Send");
+                    btnStatue = btnStatue+1;
+                    myService.setMap(mBaiduMap);
+                    //myService.queryHistoryTrack();
                 }
                 return true;
 
@@ -302,6 +310,9 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
+            nHandler.sendMessage(mHandler.obtainMessage());
+
         }
     };
 
@@ -311,9 +322,18 @@ public class MainActivity extends AppCompatActivity {
             refreshUI();
         }
     };
+    private Handler nHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            stopUI();
+        }
+    };
 
     private void refreshUI() {
         textview.setText(myService.hint());
+    }
+    private void stopUI() {
+        textview.setText("行程结束");
     }
 
 }

@@ -7,10 +7,10 @@ import java.util.Arrays;
  * Created by admin on 2017/4/15.
  */
 class TravelWay {
-    private final String[] ways = {"步行", "自行车", "电动车", "摩托车",
-            "公共汽车", "地铁", "公司班车", "小区班车",
-            "网约/出租车", "私家车", "公司配车", "货车", "其他"};
-    private final int[] id = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+    private final String[] ways = {"步行", "自行车", "电动车", "校览车",
+            "校车", "小汽车", "公交车", "摩托车",
+            "网约/出租车", "其他"};
+    private final int[] id = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     public int c = 0;
 
@@ -35,7 +35,8 @@ class TravelWay {
     public void set(int t){
         c = t;
     }
-    public String getName(){ return  ways[c-1];}
+    public String getName(){ return  (c>0)?ways[c-1]:"无方式";}
+    boolean ifParking(){return (c==2 || c==3 || c==8);}
 
 }
 
@@ -72,10 +73,10 @@ class ParkingPlace {
 }
 
 class TravelPurpose{
-    private final String[] ways = {"上班", "上学", "回家", "业务",
-            "回单位（学校）", "就餐", "购物", "休闲娱乐",
-            "探亲访友", "其他", "接送其他", "就医"};
-    private final int[] id = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+    private final String[] ways = {"上课", "就餐", "自习", "购物",
+            "回寝室", "体育运动", "社团活动", "听讲座或看话剧",
+            "休闲活动如散步等", "就医", "其他"};
+    private final int[] id = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
     public int c = 0;
     public int map(String s){
@@ -100,5 +101,3 @@ class TravelPurpose{
         c = t;
     }
 }
-
-
