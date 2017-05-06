@@ -8,7 +8,15 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
   <body>
-    <% function getFlatternDistance(lat1,lng1,lat2,lng2){
+    <%
+    var EARTH_RADIUS = 6378137.0;    //单位M
+    var PI = Math.PI;
+
+    function getRad(d){
+      return d*PI/180.0;
+    }
+
+    function getFlatternDistance(lat1,lng1,lat2,lng2){
       var f = getRad((lat1 + lat2)/2);
       var g = getRad((lat1 - lat2)/2);
       var l = getRad((lng1 - lng2)/2);
