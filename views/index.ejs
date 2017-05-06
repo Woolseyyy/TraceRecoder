@@ -18,8 +18,10 @@
         <th>出行目的</th>
         <th>出发地点</th>
         <th>到达地点</th>
-        <th>出发时刻</th>
-        <th>到达时刻</th>
+        <th>出发时</th>
+        <th>出发分</th>
+        <th>到达时</th>
+        <th>到达分</th>
         <th>交通方式总数</th>
         <th>交通方式编号</th>
         <th>用时</th>
@@ -37,8 +39,10 @@
         <td><%= trip.purpose %></td>
         <td><%= trip.sLocation %></td>
         <td><%= trip.eLocation %></td>
-        <td><%= trip.sDate %></td>
-        <td><%= trip.eDate %></td>
+        <td><%= new Date(trip.sDate).getHours() %></td>
+        <td><%= new Date(trip.sDate).getMinutes() %></td>
+        <td><%= new Date(trip.eDate).getHours() %></td>
+        <td><%= new Date(trip.eDate).getMinutes() %></td>
         <td><%= trip.waysCount %></td>
         <td> </td>
         <td><%= trip.deltaTime[0] + ":" + trip.deltaTime[1] + ":" + trip.deltaTime[2]%></td>
@@ -54,8 +58,10 @@
         <td><%= trip.purpose %></td>
         <td><%= child.sLocation %></td>
         <td><%= child.eLocation %></td>
-        <td><%= child.sDate %></td>
-        <td><%= child.eDate %></td>
+        <td><%= new Date(child.sDate).getHours() %></td>
+        <td><%= new Date(child.sDate).getMinutes() %></td>
+        <td><%= new Date(child.eDate).getHours() %></td>
+        <td><%= new Date(child.eDate).getMinutes() %></td>
         <td> </td>
         <td><%= child.way %></td>
         <td><%= child.deltaTime[0] + ":" + child.deltaTime[1] + ":" + child.deltaTime[2]%></td>
