@@ -6,6 +6,36 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+        function getFlatternDistance(lat1,lng1,lat2,lng2){
+            var f = getRad((lat1 + lat2)/2);
+            var g = getRad((lat1 - lat2)/2);
+            var l = getRad((lng1 - lng2)/2);
+
+            var sg = Math.sin(g);
+            var sl = Math.sin(l);
+            var sf = Math.sin(f);
+
+            var s,c,w,r,d,h1,h2;
+            var a = EARTH_RADIUS;
+            var fl = 1/298.257;
+
+            sg = sg*sg;
+            sl = sl*sl;
+            sf = sf*sf;
+
+            s = sg*(1-sl) + (1-sf)*sl;
+            c = (1-sg)*(1-sl) + sf*sl;
+
+            w = Math.atan(Math.sqrt(s/c));
+            r = Math.sqrt(s*c)/w;
+            d = 2*w*a;
+            h1 = (3*r -1)/2/c;
+            h2 = (3*r +1)/2/s;
+
+            return d*(1 + fl*(h1*sf*(1-sg) - h2*(1-sf)*sg));
+        }
+    </script>
   </head>
   <body>
     <table class="table table-bordered">
@@ -77,36 +107,5 @@
 
       </tbody>
     </table>
-
-  <script>
-      function getFlatternDistance(lat1,lng1,lat2,lng2){
-          var f = getRad((lat1 + lat2)/2);
-          var g = getRad((lat1 - lat2)/2);
-          var l = getRad((lng1 - lng2)/2);
-
-          var sg = Math.sin(g);
-          var sl = Math.sin(l);
-          var sf = Math.sin(f);
-
-          var s,c,w,r,d,h1,h2;
-          var a = EARTH_RADIUS;
-          var fl = 1/298.257;
-
-          sg = sg*sg;
-          sl = sl*sl;
-          sf = sf*sf;
-
-          s = sg*(1-sl) + (1-sf)*sl;
-          c = (1-sg)*(1-sl) + sf*sl;
-
-          w = Math.atan(Math.sqrt(s/c));
-          r = Math.sqrt(s*c)/w;
-          d = 2*w*a;
-          h1 = (3*r -1)/2/c;
-          h2 = (3*r +1)/2/s;
-
-          return d*(1 + fl*(h1*sf*(1-sg) - h2*(1-sf)*sg));
-      }
-  </script>
   </body>
 </html>
