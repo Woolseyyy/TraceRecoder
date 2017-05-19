@@ -473,8 +473,8 @@ class Tools{
             client.setOnTrackListener(onTrackListener);
 
             client.queryDistance(serviceId, entityName,
-                    1, "need_denoise=1,need_vacuate=1,need_mapmatch=0",
-                    "no_supplement",
+                    1, "need_denoise=1,need_vacuate=1,need_mapmatch=1",
+                    "walking",
                     (int)(s.getTime() / 1000), (int)(e.getTime() / 1000),null
             );
         }

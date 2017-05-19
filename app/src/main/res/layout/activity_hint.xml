@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_hint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="com.dankstudio.www.tracerecord.HintActivity">
+
+    <TextView
+            android:text="软件按钮定义：\n 1.开始（连接）、结束（STOP）——表示开始或结束一次出行。\n 2.出行方式——出行方式改变，如步行改骑车、骑车改巴士时点击。\n 3.SEND——本次出行结束时点击上传数据。为了数据上传请等待片刻再退出软件。\n \n 软件使用示例：以一次目的地为东六，先步行后骑车再步行的“上课”出行为例：\n \n 下寝室楼、出门→连接、开始出行，选择出行目的“上课”，出行方式“步行”→上车前点击“出行方式”，选择“自行车”，开始骑车→骑至东一车库，下车，选择“出行方式”，勾选“停车位置”，选择“步行”，开始步行至东六教学区→进入东六，本次“上课”出行结束，点击STOP并点击SEND发送数据→等待5秒关闭软件\n"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" android:id="@+id/textView"/>
+</RelativeLayout>

@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn_start;
     Button btn_modeChange;
     Button btn_info;
+    Button btn_help;
     TextView textview;
 
     BaiduMap mBaiduMap;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     static int mySignal = 1;
 
     Intent webIntent;
+    Intent hintIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         bindServiceConnection();
 
         webIntent = new Intent(MainActivity.this, WebActivity.class);
+        hintIntent = new Intent(MainActivity.this, HintActivity.class);
 
         //sdk init
         SDKInitializer.initialize(getApplicationContext());
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         btn_start = (Button) findViewById(R.id.switcher);
         btn_modeChange = (Button) findViewById(R.id.mode);
         btn_info = (Button) findViewById(R.id.info);
+        btn_help = (Button) findViewById(R.id.help);
         textview = (TextView)findViewById(R.id.textView2);
         textview.getBackground().setAlpha(200);
 
@@ -130,6 +134,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(webIntent);
+            }
+        });
+        btn_help.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                startActivity(hintIntent);
             }
         });
     }

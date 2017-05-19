@@ -43,4 +43,9 @@
             android:paddingBottom="20dp" android:paddingEnd="20dp" android:paddingLeft="20dp"
             android:paddingRight="20dp" android:paddingStart="20dp" android:paddingTop="20dp"
             android:textColor="@android:color/background_light"/>
+    <Button
+            android:text="帮助"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_alignTop="@+id/info"
+            android:layout_alignRight="@+id/mode" android:layout_alignEnd="@+id/mode" android:id="@+id/help"/>
 </RelativeLayout>
