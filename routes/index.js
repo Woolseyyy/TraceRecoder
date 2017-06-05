@@ -1,19 +1,32 @@
 var express = require('express');
 var User = require('../db/user');
 var Info = require('../db/info');
+var CitizenInfo = require('../db/citizenInfo');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  User.find(null,function(err, users){
-    if(err){
-      res.render('error', { message: '数据库查询错误', error:err });
-    }
-    else {
-      console.log(users);
-      res.render('index', { users:users });
-    }
-  });
+    User.find({areaID:null},function(err, users){
+        if(err){
+            res.render('error', { message: '数据库查询错误', error:err });
+        }
+        else {
+            console.log(users);
+            res.render('index', { users:users });
+        }
+    });
+});
+
+router.get('/', function(req, res, next) {
+    User.find({areaID:{"$ne": null}},function(err, users){
+        if(err){
+            res.render('error', { message: '数据库查询错误', error:err });
+        }
+        else {
+            console.log(users);
+            res.render('index', { users:users });
+        }
+    });
 });
 
 router.get('/user', function(req, res, next) {
@@ -125,6 +138,11 @@ router.get('/info', function(req, res, next) {
   res.render('info', { id:id });
 });
 
+router.get('/citizen/info', function(req, res, next) {
+    var id = req.query.id;
+    res.render('citizenInfo', { id:id });
+});
+
 router.post('/info', function(req, res, next) {
   var form = req.body.form;
   console.log(form);
@@ -144,6 +162,27 @@ router.post('/info', function(req, res, next) {
       });
     }
   })
+});
+
+router.post('/citizen/info', function(req, res, next) {
+    var form = req.body.form;
+    console.log(form);
+    CitizenInfo.create(form, function(err){
+        if(err){
+            res.json({
+                code: -1,
+                msg: '新增错误:' + err,
+                body: {}
+            });
+        }
+        else{
+            res.json({
+                code: 0,
+                msg: 'ok',
+                body: {}
+            });
+        }
+    })
 });
 
 router.get('/info/success', function(req, res, next) {
@@ -166,6 +205,18 @@ router.get('/info/watch', function(req, res, next) {
   });
 });
 
+router.get('/citizen/info/watch', function(req, res, next) {
+    CitizenInfo.find(null,function(err, info){
+        if(err){
+            res.render('error', { message: '数据库查询错误', error:err });
+        }
+        else {
+            console.log(info);
+            res.render('citizenInfoWatch', { infos:info });
+        }
+    });
+});
+
 router.post('/info/delete', function(req, res, next) {
   var _id = req.body._id;
   console.log(_id);
@@ -185,6 +236,27 @@ router.post('/info/delete', function(req, res, next) {
       });
     }
   })
+});
+
+router.post('/citizen/info/delete', function(req, res, next) {
+    var _id = req.body._id;
+    console.log(_id);
+    CitizenInfo.remove({_id:_id}, function(err){
+        if(err){
+            res.json({
+                code: -1,
+                msg: '删除错误:' + err,
+                body: {}
+            });
+        }
+        else{
+            res.json({
+                code: 0,
+                msg: 'ok',
+                body: {}
+            });
+        }
+    })
 });
 
 

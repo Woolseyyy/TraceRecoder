@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema;
 module.exports = mongoose.model('user', new Schema({
-    areaID: String,
+    areaID: {type:String, default:null},
     id: {type:String, unique:true},
     maxTripNum : Number,
     trip:[{

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>个人信息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  </head>
+  <body>
+  <div>
+    <div class="form-group">
+      <label class="control-label">ID</label>
+      <input class="form-control" type="text" value=<%= id %> id="id" readonly/>
+    </div>
+
+    <div class="form-group">
+      <label >性别</label>
+      <select class="form-control" id="sex">
+        <option>男</option>
+        <option>女</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >年龄</label>
+      <select class="form-control" id="year">
+        <% for(var i=0; i<=120; i++){ %>
+        <option> <%= i+"岁" %> </option>
+        <% } %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >家庭地址</label>
+      <select class="form-control" id="addressBlock">
+        <option>上城区</option>
+        <option>下城区</option>
+        <option>西湖区</option>
+        <option>拱墅区</option>
+        <option>滨江区</option>
+        <option>江干区</option>
+        <option>余杭区</option>
+        <option>萧山区</option>
+      </select>
+      <div class="input-group">
+        <input class="form-control" type="text" id="addressRoad"/>
+        <div class="input-group-addon">路</div>
+      </div>
+      <div class="input-group">
+        <input class="form-control" type="text" id="addressNum"/>
+        <div class="input-group-addon">号</div>
+      </div>
+      <div class="input-group">
+        <input class="form-control" type="text" id="addressName"/>
+        <div class="input-group-addon">小区</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label >受教育程度</label>
+      <select class="form-control" id="education">
+        <option>小学或以下</option>
+        <option>初中</option>
+        <option>高中、大专</option>
+        <option>本科</option>
+        <option>研究生及以上</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >职业</label>
+      <select class="form-control" id="job">
+        <option>国家行政机关、事业单位</option>
+        <option>国营企业</option>
+        <option>民营企业</option>
+        <option>外资、合资企业</option>
+        <option>个体经营户</option>
+        <option>退休</option>
+        <option>学生</option>
+        <option>无业</option>
+        <option>其他</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >家庭月收入</label>
+      <select class="form-control" id="familyIncome">
+        <option>0-2999</option>
+        <option>3000-4499</option>
+        <option>4500-5999</option>
+        <option>6000-7999</option>
+        <option>8000-9999</option>
+        <option>10000-14999</option>
+        <option>15000-19999</option>
+        <option>20000-24999</option>
+        <option>25000-29999</option>
+        <option>30000-34999</option>
+        <option>35000以上</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >个人月收入</label>
+      <select class="form-control" id="familyIncome">
+        <option>0-1999</option>
+        <option>2000-3499</option>
+        <option>3500-4999</option>
+        <option>5000-6999</option>
+        <option>7000-9999</option>
+        <option>10000-14999</option>
+        <option>15000-19999</option>
+        <option>20000以上</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>家庭人口数</label>
+      <select class="form-control" id="familyNum">
+          <% for(var i=1; i<=12; i++){ %>
+        <option> <%= i+"人" %> </option>
+          <% } %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >家庭属性</label>
+      <select class="form-control" id="familyAttr">
+        <option>年轻的单身家庭(年龄<60 岁)</option>
+        <option>无子女的年轻夫妇家庭 (包括男女朋友合住) (年长者年龄<60 岁) </option>
+        <option>三代同堂家庭 (最小孩子<18 岁且老人同住) </option>
+        <option>学前儿童的核心家庭 (无老人同住且最小的小孩年龄<6 岁) </option>
+        <option>小学学生的核心家庭 (无老人同住且最小的小孩≥6 岁同时<12 岁) </option>
+        <option>初高中学生的核心家庭(无老人 同住且最小的小孩≥12 岁同时<18 岁) </option>
+        <option>成年人无老人同住家庭 (最小的孩子≥18 岁) </option>
+        <option>成年人有老人同住家庭 (最小的孩子≥18 岁) </option>
+        <option>无子女的老年夫妇家庭 (最老的老人年龄≥60 岁)
+          独居老人(年龄≥60 岁)</option>
+        <option>单亲无老人同住家庭 (最小孩子年龄<18 岁) </option>
+        <option>单亲有老人同住家庭 (最小孩子年龄<18 岁) </option>
+        <option>合租家庭(无血缘关系同住) </option>
+        <option>其他家庭 </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>汽车驾照</label>
+      <select class="form-control" id="has">
+        <option>有</option>
+        <option>无</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >汽车保有量</label>
+      <select class="form-control" id="carNum">
+        <% for(var i=0; i<=5; i++){ %>
+        <option> <%= i %> </option>
+        <% } %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >电动车保有量</label>
+      <select class="form-control" id="mobikeNum">
+        <% for(var i=0; i<=5; i++){ %>
+        <option> <%= i %> </option>
+        <% } %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >自行车保有量</label>
+      <select class="form-control" id="bikeNum">
+        <% for(var i=0; i<=5; i++){ %>
+        <option> <%= i %> </option>
+        <% } %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >工作或学校详细地址</label>
+      <select class="form-control" id="orgAddressBlock">
+        <option>上城区</option>
+        <option>下城区</option>
+        <option>西湖区</option>
+        <option>拱墅区</option>
+        <option>滨江区</option>
+        <option>江干区</option>
+        <option>余杭区</option>
+        <option>萧山区</option>
+      </select>
+      <div class="input-group">
+        <input class="form-control" type="text" id="orgAddressRoad"/>
+        <div class="input-group-addon">路</div>
+      </div>
+      <div class="input-group">
+        <input class="form-control" type="text" id="orgAddressNum"/>
+        <div class="input-group-addon">号</div>
+      </div>
+      <div class="input-group">
+        <input class="form-control" type="text" id="orgAddressName"/>
+        <div class="input-group-addon">小区</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">小区代码</label>
+      <input class="form-control" type="text" id="areaId" />
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">家庭代码</label>
+      <input class="form-control" type="text" id="familyId" />
+    </div>
+
+    <button class="btn btn-default" id="submit">Submit</button>
+  </div>
+
+  <div id="success" class="myalert">
+    添加成功
+  </div>
+
+  <div id="failed" class="myalert">
+    添加失败
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script>
+    $("#submit").click(function(){
+      $.ajax({
+        url: "/citizen/info",
+        contentType: 'application/json',
+        type: 'POST',
+        data: JSON.stringify({
+          form:{
+              id: $("#id").val(),
+              sex: ($("#sex").val()=='男')?3:4,
+              year: $("#year").prop('selectedIndex'),
+              address: {
+                  block:$("#addressBlock").val(),
+                  road:$("#addressRoad").val(),
+                  number:$("#addressNum").val(),
+                  name:$("#addressName").val()
+              },
+              education: $("#education").prop('selectedIndex')+1,
+              job: $("#job").prop('selectedIndex')+1,
+              familyIncome: $("#familyIncome").prop('selectedIndex')+1,
+              personIncome: $("#personIncome").prop('selectedIndex')+1,
+              familyNum: $("#familyNum").prop('selectedIndex')+1,
+              familyAttr: $("#familyAttr").prop('selectedIndex')+1,
+              has: $("#has").prop('selectedIndex'),
+              carNum: $("#carNum").prop('selectedIndex'),
+              mobikeNum: $("#mobikeNum").prop('selectedIndex'),
+              bikeNum: $("#bikeNum").prop('selectedIndex')
+              orgAddress: {
+                  block:$("#orgAddressBlock").val(),
+                  road:$("#orgAddressRoad").val(),
+                  number:$("#orgAddressNum").val(),
+                  name:$("#orgAddressName").val()
+              },
+              areaID: $("#areaID").val(),
+              familyID: $("#familyID").val()
+          }
+        }),
+        success: function(data) {
+          var code = data.code;
+          if(code<0){
+            $("#failed").show();
+          }
+          else{
+            $("#success").show();
+          }
+          console.log(data);
+        },
+        error: function(xhr, status, err) {
+          $("#failed").show();
+        }
+      });
+    })
+
+  </script>
+  </body>
+</html>

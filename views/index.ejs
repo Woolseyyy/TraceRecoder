@@ -16,34 +16,65 @@
       return d*PI/180.0;
     }
 
-    function getFlatternDistance(lat1,lng1,lat2,lng2){
-      var f = getRad((lat1 + lat2)/2);
-      var g = getRad((lat1 - lat2)/2);
-      var l = getRad((lng1 - lng2)/2);
+    function getFlatternDistance(lat1,lng1,lat2,lng2) {
+      var f = getRad((lat1 + lat2) / 2);
+      var g = getRad((lat1 - lat2) / 2);
+      var l = getRad((lng1 - lng2) / 2);
 
       var sg = Math.sin(g);
       var sl = Math.sin(l);
       var sf = Math.sin(f);
 
-      var s,c,w,r,d,h1,h2;
+      var s, c, w, r, d, h1, h2;
       var a = EARTH_RADIUS;
-      var fl = 1/298.257;
+      var fl = 1 / 298.257;
 
-      sg = sg*sg;
-      sl = sl*sl;
-      sf = sf*sf;
+      sg = sg * sg;
+      sl = sl * sl;
+      sf = sf * sf;
 
-      s = sg*(1-sl) + (1-sf)*sl;
-      c = (1-sg)*(1-sl) + sf*sl;
+      s = sg * (1 - sl) + (1 - sf) * sl;
+      c = (1 - sg) * (1 - sl) + sf * sl;
 
-      w = Math.atan(Math.sqrt(s/c));
-      r = Math.sqrt(s*c)/w;
-      d = 2*w*a;
-      h1 = (3*r -1)/2/c;
-      h2 = (3*r +1)/2/s;
+      w = Math.atan(Math.sqrt(s / c));
+      r = Math.sqrt(s * c) / w;
+      d = 2 * w * a;
+      h1 = (3 * r - 1) / 2 / c;
+      h2 = (3 * r + 1) / 2 / s;
 
-      return d*(1 + fl*(h1*sf*(1-sg) - h2*(1-sf)*sg));
-    } %>
+      return d * (1 + fl * (h1 * sf * (1 - sg) - h2 * (1 - sf) * sg));
+    }
+
+    function getStraightDis(lat1,lng1,lat2,lng2){
+      var d1 = getRad(90-lat2);
+      var d2 = getRad(90-lat1);
+      var d3 = getRad(90-lat2);
+      var d4 = getRad(90-lat2);
+      var d5 = getRad(lng2-lng1);
+
+      var c = Math.acos( Math.cos(d1)*Math.cos(d2) + Math.sin(d3)*Math.sin(d4)*Math.cos(d5) );
+
+      return 6371*c;
+    }
+
+    function getMHDistance(lat1, lng1, lat2, lng2) {
+      var d = (lng2-lng1)*Math.cos(getRad(lat2)/(lat2-lat1));
+      var A = Math.atan(d);
+      return getStraightDis(lat1,lng1,lat2,lng2)*(Math.cos(A) + Math.sin(A));
+    }
+
+    function getFinalDistance(lat1, lng1, lat2, lng2, dt){
+        var s = getStraightDis(lat1,lng1,lat2,lng2);
+        if(dt==0 || dt<s){
+            return getMHDistance(lat1, lng1, lat2, lng2);
+        }
+        else{
+            return dt;
+        }
+    }
+
+
+    %>
     <table class="table table-bordered">
       <tbody>
       <tr>
@@ -64,6 +95,7 @@
         <th>出行距离</th>
         <th>停车位置</th>
         <th>近似距离</th>
+        <th>最终距离</th>
       </tr>
 
       <% users.forEach(function(user){ %>
@@ -86,6 +118,7 @@
         <td><%= trip.distance %></td>
         <td> </td>
         <td> </td>
+        <td> </td>
       </tr>
       <% trip.children.forEach(function(child){ %>
       <tr>
@@ -106,6 +139,7 @@
         <td><%= child.distance %></td>
         <td><%= (child.place==0)?null:child.place %></td>
         <td><%= getFlatternDistance(child.sLocation.data[0], child.sLocation.data[1], child.eLocation.data[0], child.eLocation.data[1])%></td>
+        <td><%= getFinalDistance(child.sLocation.data[0], child.sLocation.data[1], child.eLocation.data[0], child.eLocation.data[1], child.distance)%></td>
       </tr>
       <% }) %>
       <% }) %>
