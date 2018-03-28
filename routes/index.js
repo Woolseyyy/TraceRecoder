@@ -105,11 +105,20 @@ router.post('/save', function(req, res, next) {
         user.maxTripNum = InUser.maxTripNum;
         user.trip.push(InTrip);
         user.save(function(err){
-          res.json({
-            code: -1,
-            msg: '修改错误:' + err,
-            body: {}
-          });
+          if(err){
+              res.json({
+              code: -1,
+              msg: '修改错误:' + err,
+              body: {}
+            });
+          }
+          else{
+              res.json({
+              code: 0,
+              msg: 'ok',
+              body: {}
+            });
+          }
         });
       }
       else{
