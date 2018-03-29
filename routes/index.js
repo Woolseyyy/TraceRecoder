@@ -142,6 +142,71 @@ router.post('/save', function(req, res, next) {
   })
 });
 
+router.post('/recognition', function(req, res, next) {
+    var tripID = req.body.tripID;
+    var data = req.body.data;
+
+    /*var dataForTest = {
+        data:[
+            {
+                segment_ID: tripID,
+                trans_mode: 'None',
+                former_trans_mode: 'None',
+                data: data
+            }
+        ]
+    };*/
+    var dataForTest = {"data":[{"segment_ID":"Data 085 _20081211234130_bus","trans_mode":"bus","former_trans_mode":"None","data":[{"latitude":39.897337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:30"},{"latitude":39.897337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:31"}]},{"segment_ID":"Data 085 _20081211235228_walk","trans_mode":"walk","former_trans_mode":"bus","data":[{"latitude":39.897337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:30"},{"latitude":39.897337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:31"}]}]};
+
+    //var args = JSON.stringify(dataForTest).replace(/\"/g, "\\\"");
+    var args = JSON.stringify(dataForTest);
+
+    /* const spawn = require('child_process').spawn;
+    var child = spawn('python', ['../recognition/one_segment.py', args]);
+    child.stdout.on('data', function(stdout){
+        var mode = stdout;
+        res.json({
+            code: 0,
+            msg:'ok',
+            body:{
+                mode: mode
+            }
+        })
+    });
+    child.stderr.on('data', function(stderr){
+        console.error('Error when recognition!\nMessage: ' + stderr + '\nData: ' + dataForTest);
+        res.json({
+            code: -1,
+            msg:'error',
+            body:{
+                error: stderr
+            }
+        })
+    })
+    */
+    var spawnSync = require('spawn-sync');
+    var result = spawnSync('python', ['../recognition/one_segment.py', args]);
+    if (result.status !== 0) {
+        console.error('Error when recognition!\nMessage: ' + result.stderr + '\nData: ' + dataForTest);
+        res.json({
+            code: -1,
+            msg:'error',
+            body:{
+                error: result.stderr
+            }
+        })
+    } else {
+        var mode = result.stdout;
+        res.json({
+            code: 0,
+            msg:'ok',
+            body:{
+                mode: mode
+            }
+        })
+    }
+});
+
 router.get('/info', function(req, res, next) {
   var id = req.query.id;
   res.render('info', { id:id });

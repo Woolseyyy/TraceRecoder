@@ -13,6 +13,7 @@
     "express": "~4.13.4",
     "mongoose": "^4.9.7",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "spawn-sync": "^1.0.15"
   }
 }
