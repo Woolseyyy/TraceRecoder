@@ -155,7 +155,7 @@ router.post('/save', function(req, res, next) {
 });
 
 router.post('/recognition', function(req, res, next) {
-    var tripID = req.body.tripID;
+    var tripID = req.body.tripID.toString();
     var data = req.body.data;
 
     var dataForTest = {
