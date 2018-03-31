@@ -5,7 +5,7 @@ var CitizenInfo = require('../db/citizenInfo');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+/*router.get('/', function(req, res, next) {
     User.find({areaID:null},function(err, users){
         if(err){
             res.render('error', { message: '数据库查询错误', error:err });
@@ -19,6 +19,18 @@ router.get('/', function(req, res, next) {
 
 router.get('/', function(req, res, next) {
     User.find({areaID:{"$ne": null}},function(err, users){
+        if(err){
+            res.render('error', { message: '数据库查询错误', error:err });
+        }
+        else {
+            console.log(users);
+            res.render('index', { users:users });
+        }
+    });
+});*/
+
+router.get('/', function(req, res, next) {
+    User.find({},function(err, users){
         if(err){
             res.render('error', { message: '数据库查询错误', error:err });
         }
@@ -55,7 +67,7 @@ router.get('/user', function(req, res, next) {
       }
       else{
         var newUser = {
-          areaID:'',
+          areaID:null,
           id: id,
           maxTripNum : 0,
           trip:[]
