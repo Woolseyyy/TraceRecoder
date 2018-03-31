@@ -116,13 +116,13 @@ class OneSegment(object):
                 times.append(row_j['time'])
 
         d = {
-            'segment_ID':segment_ids,
-            'trans_mode':trans_modes,
-            'former_trans_mode':former_trans_modes,
-            'latitude':latitudes,
-            'longitude':longitudes,
-            'date':dates,
-            'time':times
+            'segment_ID': segment_ids,
+            'trans_mode': trans_modes,
+            'former_trans_mode': former_trans_modes,
+            'latitude': latitudes,
+            'longitude': longitudes,
+            'date': dates,
+            'time': times
         }
         # columns = ['segment_ID', 'trans_mode', 'former_trans_mode', 'latitude', 'longitude', 'date', 'time']
         # array = np.array([segment_ids, trans_modes, former_trans_modes, latitudes, longitudes, dates, times]).transpose()
@@ -298,10 +298,14 @@ class OneSegment(object):
 
         # 总时间
         time_total = np.sum(self.data.time_delta)
+        if time_total == 0:
+            time_total = 1
         # print('time_total: ', time_total)
 
         # 总距离
         distance_total = np.sum(self.data.distance_delta)
+        if distance_total == 0:
+            distance_total = 1
         # print('distance_total: ', distance_total)
 
         # 平均速度——时间&距离
