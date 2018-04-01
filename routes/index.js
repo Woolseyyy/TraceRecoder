@@ -200,7 +200,7 @@ router.post('/recognition', function(req, res, next) {
     })
     */
     var spawnSync = require('spawn-sync');
-    var result = spawnSync('python', ['../recognition/one_segment.py', args]);
+    var result = spawnSync('python', ['recognition/one_segment.py', args]);
     if (result.status !== 0) {
         var error = new TextDecoder("utf-8").decode(result.stderr);
         console.error('Error when recognition!\nMessage: ' + error + '\nData: ' + dataForTest);
