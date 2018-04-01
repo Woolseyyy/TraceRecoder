@@ -3,6 +3,8 @@ var User = require('../db/user');
 var Info = require('../db/info');
 var CitizenInfo = require('../db/citizenInfo');
 var router = express.Router();
+var textEncoding = require('text-encoding');
+var TextDecoder = textEncoding.TextDecoder;
 
 /* GET home page. */
 /*router.get('/', function(req, res, next) {
@@ -155,7 +157,7 @@ router.post('/save', function(req, res, next) {
 });
 
 router.post('/recognition', function(req, res, next) {
-    var tripID = req.body.tripID.toString();
+    /*var tripID = req.body.tripID.toString();
     var data = req.body.data;
 
     var dataForTest = {
@@ -167,7 +169,9 @@ router.post('/recognition', function(req, res, next) {
                 data: data
             }
         ]
-    };
+    };*/
+
+    var dataForTest = {"data":[{"segment_ID":"Data085_20081211234130_bus","trans_mode":"bus","former_trans_mode":"None","data":[{"latitude":39.897337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:30"},{"latitude":39.898337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:32"},{"latitude":39.899337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:34"}]}]};
 
     //var args = JSON.stringify(dataForTest).replace(/\"/g, "\\\"");
     var args = JSON.stringify(dataForTest);
@@ -207,7 +211,14 @@ router.post('/recognition', function(req, res, next) {
             }
         })
     } else {
-        var mode = result.stdout;
+        var mode = new TextDecoder("utf-8").decode(result.stdout);
+        if(mode[mode.length-1] === '\n'){
+            mode = mode.slice(0, mode.length-1);
+        }
+        if(mode[mode.length-1] === '\r'){
+            mode = mode.slice(0, mode.length-1);
+        }
+
         res.json({
             code: 0,
             msg:'ok',
