@@ -157,7 +157,7 @@ router.post('/save', function(req, res, next) {
 });
 
 router.post('/recognition', function(req, res, next) {
-    /*var tripID = req.body.tripID.toString();
+    var tripID = req.body.tripID.toString();
     var data = req.body.data;
 
     var dataForTest = {
@@ -169,9 +169,9 @@ router.post('/recognition', function(req, res, next) {
                 data: data
             }
         ]
-    };*/
+    };
 
-    var dataForTest = {"data":[{"segment_ID":"Data085_20081211234130_bus","trans_mode":"bus","former_trans_mode":"None","data":[{"latitude":39.897337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:30"},{"latitude":39.898337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:32"},{"latitude":39.899337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:34"}]}]};
+    //var dataForTest = {"data":[{"segment_ID":"Data085_20081211234130_bus","trans_mode":"bus","former_trans_mode":"None","data":[{"latitude":39.897337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:30"},{"latitude":39.898337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:32"},{"latitude":39.899337,"longitude":116.343463,"date":"2008-12-11","time":"23:41:34"}]}]};
 
     //var args = JSON.stringify(dataForTest).replace(/\"/g, "\\\"");
     var args = JSON.stringify(dataForTest);
