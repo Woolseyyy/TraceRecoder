@@ -219,12 +219,19 @@ router.post('/recognition', function(req, res, next) {
         if(mode[mode.length-1] === '\r'){
             mode = mode.slice(0, mode.length-1);
         }
+        
+        var modeDic = {
+            'bike': 2, 
+            'bus': 7, 
+            'car': 6, 
+            'walk': 1};
 
         res.json({
             code: 0,
             msg:'ok',
             body:{
                 mode: mode
+                modeCode: modeDic[mode]
             }
         })
     }
