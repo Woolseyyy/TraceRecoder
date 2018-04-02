@@ -230,7 +230,7 @@ router.post('/recognition', function(req, res, next) {
             code: 0,
             msg:'ok',
             body:{
-                mode: mode
+                mode: mode,
                 modeCode: modeDic[mode]
             }
         })
