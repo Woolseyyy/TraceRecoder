@@ -48,4 +48,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:layout_alignTop="@+id/info"
             android:layout_alignRight="@+id/mode" android:layout_alignEnd="@+id/mode" android:id="@+id/help"/>
+    <Switch
+            android:text="自动识别 "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/recognition_switch"
+            android:layout_alignBaseline="@+id/switcher" android:layout_alignBottom="@+id/switcher"
+            android:layout_centerHorizontal="true" tools:background="?android:attr/colorButtonNormal"
+            android:padding="8dp"/>
 </RelativeLayout>

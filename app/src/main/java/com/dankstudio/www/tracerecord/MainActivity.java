@@ -10,9 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.PopupMenu;
-import android.widget.TextView;
+import android.widget.*;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
@@ -25,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn_info;
     Button btn_help;
     TextView textview;
+    Switch recognition_switch;
 
     BaiduMap mBaiduMap;
 
@@ -36,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     Intent webIntent;
     Intent hintIntent;
+
+    private boolean recognition = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         btn_help = (Button) findViewById(R.id.help);
         textview = (TextView)findViewById(R.id.textView2);
         textview.getBackground().setAlpha(200);
+        recognition_switch = (Switch)findViewById(R.id.recognition_switch);
 
         //map init
         mBaiduMap = mMapView.getMap();
@@ -143,6 +145,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(hintIntent);
             }
         });
+
+        recognition_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    recognition = true;
+                }else {
+                    recognition = false;
+                }
+            }
+        });
     }
 
     private void showConfirm(final View view){
@@ -158,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                         showParkingPlace(view);
                     }
                     else{
-                        myService.stop(new ParkingPlace());
+                        myService.stop(new ParkingPlace(), recognition);
                         mySignal = 0;
                         btn_start.setText("Send");
                         btnStatue = btnStatue+1;
@@ -199,42 +212,66 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showWay(final View view, final TravelPurpose purpose, final ParkingPlace place){
-        PopupMenu menu = new PopupMenu(this,view);
-        menu.getMenuInflater().inflate(R.menu.way,menu.getMenu());
-        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                TravelWay way = new TravelWay(item.getTitle().toString());
+        if(recognition){
+            TravelWay way = new TravelWay();
 
-                if(wayMenuPurpose==1)//start
-                {
-                    wayMenuPurpose = 0;
-                    myService.start(purpose, way);
-                    btn_start.setText("Stop");
-                    btnStatue = btnStatue+1;
+            if(wayMenuPurpose==1)//start
+            {
+                wayMenuPurpose = 0;
+                myService.start(purpose, way);
+                btn_start.setText("Stop");
+                btnStatue = btnStatue+1;
 
-                    mySignal = 1;
-                    new Thread(mRunnable).start();
+                mySignal = 1;
+                new Thread(mRunnable).start();
 
-                    RefreshMap refreshMap = new RefreshMap();
-                    //refreshMap.start();
-                }
-                else if(wayMenuPurpose==2)//mode change
-                {
-                    wayMenuPurpose = 0;
-                    myService.modeChange(way, place);
-                }
-                return true;
-
+                RefreshMap refreshMap = new RefreshMap();
+                //refreshMap.start();
             }
-        });
-        menu.setOnDismissListener(new PopupMenu.OnDismissListener() {
-            @Override
-            public void onDismiss(PopupMenu menu) {
-
+            else if(wayMenuPurpose==2)//mode change
+            {
+                wayMenuPurpose = 0;
+                myService.modeChange(way, place, recognition);
             }
-        });
-        menu.show();
+        }
+        else{
+            PopupMenu menu = new PopupMenu(this,view);
+            menu.getMenuInflater().inflate(R.menu.way,menu.getMenu());
+            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    TravelWay way = new TravelWay(item.getTitle().toString());
+
+                    if(wayMenuPurpose==1)//start
+                    {
+                        wayMenuPurpose = 0;
+                        myService.start(purpose, way);
+                        btn_start.setText("Stop");
+                        btnStatue = btnStatue+1;
+
+                        mySignal = 1;
+                        new Thread(mRunnable).start();
+
+                        RefreshMap refreshMap = new RefreshMap();
+                        //refreshMap.start();
+                    }
+                    else if(wayMenuPurpose==2)//mode change
+                    {
+                        wayMenuPurpose = 0;
+                        myService.modeChange(way, place, recognition);
+                    }
+                    return true;
+
+                }
+            });
+            menu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+                @Override
+                public void onDismiss(PopupMenu menu) {
+
+                }
+            });
+            menu.show();
+        }
     }
 
     private void showParkingPlace(final View view){
@@ -251,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(parkingPurpose==2){//stop
                     parkingPurpose = 0;
-                    myService.stop(place);
+                    myService.stop(place, recognition);
                     mySignal = 0;
                     btn_start.setText("Send");
                     btnStatue = btnStatue+1;

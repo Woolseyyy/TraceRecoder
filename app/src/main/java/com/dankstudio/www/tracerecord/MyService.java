@@ -8,7 +8,6 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.widget.Button;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
@@ -23,6 +22,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.*;
+
+import static com.dankstudio.www.tracerecord.MyService.JSON;
 
 public class MyService extends Service {
     private Trip trip;
@@ -104,7 +105,7 @@ public class MyService extends Service {
     }
     public void dataUpdate(final MainActivity activity){
         try {
-            get("http://123.206.108.55:3000/user?id=" + entityName,
+            get("http://122.152.206.185:3000/user?id=" + entityName,
                     new Callback()
                     {
                         @Override
@@ -193,9 +194,9 @@ public class MyService extends Service {
 
 
     //api
-    public void modeChange(TravelWay way, ParkingPlace place){
+    public void modeChange(TravelWay way, ParkingPlace place, Boolean recognition){
         Log.e("MY", "enter modeChange:"+way);
-        trip.modeChange(way, place);
+        trip.modeChange(way, place, recognition);
         colorChange();
     }
 
@@ -211,12 +212,12 @@ public class MyService extends Service {
         client.startTrace(trace, startTraceListener);//开启轨迹服务
 
         //new trip
-        Tools tools = new Tools(client, serviceId, entityName);
+        Tools tools = new Tools(client, serviceId, entityName, okHttpClient);
         trip = new Trip(user, purpose, tools, way);
 
     }
-    public void stop(ParkingPlace place){
-        trip.stopTrip(place);
+    public void stop(ParkingPlace place, Boolean recognition){
+        trip.stopTrip(place, recognition);
         client.stopTrace(trace,stopTraceListener); //停止轨迹服务
     }
 
@@ -235,7 +236,7 @@ public class MyService extends Service {
 
         //connect
         try {
-            post("http://123.206.108.55:3000/save", body.toString());
+            post("http://122.152.206.185:3000/save", body.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -345,11 +346,108 @@ class Tools{
     private LBSTraceClient client;
     private long serviceId;
     private String entityName;
+    private OkHttpClient okHttpClient;
 
-    Tools(LBSTraceClient in_client, long in_serviceId, String in_entityName){
+    Tools(LBSTraceClient in_client, long in_serviceId, String in_entityName, OkHttpClient in_okHttpClient){
         client = in_client;
         serviceId = in_serviceId;
         entityName = in_entityName;
+        okHttpClient = in_okHttpClient;
+    }
+
+    void getWay(SubTrip subtrip) {
+        TraceTools traceTools = new TraceTools(subtrip);
+        traceTools.start();
+    }
+
+    class TraceTools{
+
+        private SubTrip subtrip;
+
+        TraceTools(SubTrip in_subtrip) {
+            subtrip = in_subtrip;
+        }
+
+        private OnTrackListener trackListener = new OnTrackListener() {
+            //请求失败回调接口
+            @Override
+            public void onRequestFailedCallback(String arg0) {
+                System.out.println("track请求失败回调接口消息 : " + arg0);
+            }
+
+            // 查询历史轨迹回调接口
+            @Override
+            public void onQueryHistoryTrackCallback(String message) {
+                //Log.e("MY", "Query Back:" + message);
+                JSONObject data = null;
+                try {
+                    data = new JSONObject(message);
+                    JSONArray points = data.getJSONArray("points");
+                    JSONArray argsData = new JSONArray();
+                    for(int i=0; i < points.length(); i++){
+                        JSONObject point = points.getJSONObject(i);
+
+                        JSONObject argsPoint = new JSONObject();
+                        argsPoint.put("latitude", point.getJSONArray("location").getDouble(1));
+                        argsPoint.put("longitude", point.getJSONArray("location").getDouble(0));
+                        argsPoint.put("date", point.getString("create_time").split(" ")[0]);
+                        argsPoint.put("time", point.getString("create_time").split(" ")[1]);
+
+                        argsData.put(argsPoint);
+                    }
+
+                    recognition(argsData);
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        };
+
+        private void recognition(JSONArray data){
+            JSONObject args = new JSONObject();
+
+            try {
+                args.put("data", data);
+
+                String res = post("http://122.152.206.185:3000/recognition", args.toString());
+
+                JSONObject resOb = new JSONObject(res);
+                int code = resOb.getInt("code");
+
+                if(code<0){
+                    System.out.println("track请求失败回调接口消息 : " + resOb.getJSONObject("body").getString("error"));
+                }
+                else{
+                    int modeCode = resOb.getJSONObject("body").getInt("modeCode");
+                    subtrip.way.set(modeCode);
+                }
+
+            } catch (JSONException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        void start(){
+            client.setOnTrackListener(trackListener);
+            client.queryHistoryTrack(serviceId , entityName, 0, 1,
+                    null, (int)(subtrip.sDate.getTime()/1000), (int)(subtrip.eDate.getTime()/1000), 5000, 1, null);
+        }
+    }
+
+    String post(String url, String json) throws IOException {
+        Log.e("MY", url);
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Response response = okHttpClient.newCall(request).execute();
+        return response.body().string();
     }
 
     class LocTools{
@@ -530,6 +628,16 @@ class Trip {
         return children.get(children.size()-1).way.ifParking();
     }
 
+    private void addSubTrip(){
+        SubTrip child = new SubTrip();
+        //init
+        child.id = children.size();
+        tools.getLoc(child.sLocation);
+
+        //add
+        children.add(child);
+    }
+
     private void addSubTrip(TravelWay way){
         SubTrip child = new SubTrip();
         //init
@@ -541,24 +649,33 @@ class Trip {
         children.add(child);
     }
 
-    private void completeLastSubTrip(ParkingPlace place){
+    private void completeLastSubTrip(ParkingPlace place, boolean recognition){
         SubTrip child = children.get(children.size()-1);
         tools.getLoc(child.eLocation);
         child.place.c = place.c;
         child.eDate = new Date();
         child.deltaTime = tools.subTime(child.sDate, child.eDate);
         tools.queryDistanceOFSubTrip(child);
+
+        if(recognition){
+            tools.getWay(child);
+        }
     }
 
-    void modeChange(TravelWay way, ParkingPlace place){
-        completeLastSubTrip(place);
-        addSubTrip(way);
+    void modeChange(TravelWay way, ParkingPlace place, boolean recognition){
+        completeLastSubTrip(place, recognition);
+        if(recognition){
+            addSubTrip();
+        }
+        else{
+            addSubTrip(way);
+        }
         Log.e("MY", "mode change complete");
         Log.e("MY", children.toString());
     }
 
-    void stopTrip(ParkingPlace place){
-        completeLastSubTrip(place);
+    void stopTrip(ParkingPlace place, boolean recognition){
+        completeLastSubTrip(place, recognition);
         eDate = new Date();
         deltaTime = tools.subTime(sDate, eDate);
         waysCount = countWays();
