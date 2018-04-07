@@ -40,7 +40,8 @@ module.exports = mongoose.model('user', new Schema({
             way: Number,
             place:Number,
             deltaTime:[],
-            distance: Number
+            distance: Number,
+            gps:[]
         }]
     }]
 }));
