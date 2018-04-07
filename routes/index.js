@@ -157,7 +157,7 @@ router.post('/save', function(req, res, next) {
 });
 
 router.post('/recognition', function(req, res, next) {
-    var tripID = req.body.tripID.toString();
+    var tripID = (req.body.tripID)?req.body.tripID.toString():"None";
     var data = req.body.data;
 
     var dataForTest = {
@@ -200,14 +200,15 @@ router.post('/recognition', function(req, res, next) {
     })
     */
     var spawnSync = require('spawn-sync');
-    var result = spawnSync('python', ['../recognition/one_segment.py', args]);
+    var result = spawnSync('python3', ['recognition/one_segment.py', args]);
     if (result.status !== 0) {
-        console.error('Error when recognition!\nMessage: ' + result.stderr + '\nData: ' + dataForTest);
+        var error = new TextDecoder("utf-8").decode(result.stderr);
+        console.error('Error when recognition!\nMessage: ' + error + '\nData: ' + dataForTest);
         res.json({
             code: -1,
             msg:'error',
             body:{
-                error: result.stderr
+                error: error
             }
         })
     } else {
@@ -218,12 +219,19 @@ router.post('/recognition', function(req, res, next) {
         if(mode[mode.length-1] === '\r'){
             mode = mode.slice(0, mode.length-1);
         }
+        
+        var modeDic = {
+            'bike': 2, 
+            'bus': 7, 
+            'car': 6, 
+            'walk': 1};
 
         res.json({
             code: 0,
             msg:'ok',
             body:{
-                mode: mode
+                mode: mode,
+                modeCode: modeDic[mode]
             }
         })
     }

@@ -14,7 +14,7 @@ import sys
 import json
 
 # 载入模型
-model = open(r'../recognition/transport_classifier.pkl', 'rb')
+model = open(r'recognition/transport_classifier.pkl', 'rb')
 
 Walk_Velocity_Threshold = 2.5
 Walk_Acceleration_Threshold = 1.5
