@@ -1,0 +1,2199 @@
+`open()` is deprecated in mongoose >= 4.11.0, use `openUri()` instead, or set the `useMongoClient` option if using `connect()` or `createConnection()`. See http://mongoosejs.com/docs/4.x/docs/connections.html#use-mongo-client
+Listening on port 3000
+[]
+[0mGET / [32m200 [0m22.252 ms - 1417[0m
+[]
+[0mGET / [32m200 [0m5.985 ms - 1417[0m
+[0mGET /info [32m200 [0m23.117 ms - 11065[0m
+[0mGET /user [32m200 [0m52.419 ms - 67[0m
+[0mPOST /save [33m400 [0m18.045 ms - 1561[0m
+{ trip: 
+   { id: 2,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: null, id: 'testfromiOS', maxTripNum: 1 } }
+testfromiOS
+null
+[0mPOST /save [0m- [0m- ms - -[0m
+{ trip: 
+   { id: 2,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: null, id: 'testfromiOS', maxTripNum: 1 } }
+testfromiOS
+{ _id: 5ab9d1c33094e71b7f91823f,
+  id: 'testfromiOS',
+  maxTripNum: 1,
+  __v: 0,
+  trip: 
+   [ { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1c33094e71b7f918240,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] } ],
+  areaID: null }
+[0mPOST /save [32m200 [0m38.743 ms - 47[0m
+{ trip: 
+   { id: 2,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: null, id: 'testfromiOS', maxTripNum: 10 } }
+testfromiOS
+{ _id: 5ab9d1c33094e71b7f91823f,
+  id: 'testfromiOS',
+  maxTripNum: 1,
+  __v: 1,
+  trip: 
+   [ { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1c33094e71b7f918240,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1da3094e71b7f918242,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] } ],
+  areaID: null }
+[0mPOST /save [32m200 [0m32.587 ms - 47[0m
+{ trip: 
+   { id: 2,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: null, id: 'testfromiOS', maxTripNum: 10 } }
+testfromiOS
+{ _id: 5ab9d1c33094e71b7f91823f,
+  id: 'testfromiOS',
+  maxTripNum: 10,
+  __v: 2,
+  trip: 
+   [ { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1c33094e71b7f918240,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1da3094e71b7f918242,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1e33094e71b7f918244,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] } ],
+  areaID: null }
+[0mPOST /save [32m200 [0m19.764 ms - 47[0m
+{ trip: 
+   { id: 2,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: 2, id: 'testfromiOS', maxTripNum: 10 } }
+testfromiOS
+{ _id: 5ab9d1c33094e71b7f91823f,
+  id: 'testfromiOS',
+  maxTripNum: 10,
+  __v: 3,
+  trip: 
+   [ { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1c33094e71b7f918240,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1da3094e71b7f918242,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1e33094e71b7f918244,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1e83094e71b7f918246,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] } ],
+  areaID: null }
+[0mPOST /save [32m200 [0m15.165 ms - 47[0m
+{ trip: 
+   { id: 1,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: 2, id: 'testfromiOS', maxTripNum: 10 } }
+testfromiOS
+{ _id: 5ab9d1c33094e71b7f91823f,
+  id: 'testfromiOS',
+  maxTripNum: 10,
+  __v: 4,
+  trip: 
+   [ { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1c33094e71b7f918240,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1da3094e71b7f918242,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1e33094e71b7f918244,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1e83094e71b7f918246,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1eb3094e71b7f918248,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] } ],
+  areaID: null }
+[0mPOST /save [32m200 [0m18.298 ms - 47[0m
+[0mGET /user?id=lalala [32m200 [0m3.741 ms - 81[0m
+[0mGET /favicon.ico [33m404 [0m1.767 ms - 2386[0m
+[0mGET /favicon.ico [33m404 [0m3.436 ms - 2386[0m
+[0mGET /user?id=lalala [32m200 [0m5.198 ms - 71[0m
+[0mGET /user [32m200 [0m5.142 ms - 57[0m
+[0mGET /user [36m304 [0m1.951 ms - -[0m
+[0mGET /info?id=lalala [32m200 [0m3.988 ms - 11071[0m
+[0mGET /stylesheets/style.css [32m200 [0m4.104 ms - 396[0m
+{ id: 'lalala',
+  sex: 3,
+  year: 1,
+  area: 1,
+  grade: 1,
+  major: 1,
+  mainWay: 1,
+  majorName: 'hhh',
+  has: 0,
+  carNum: 0,
+  mobikeNum: 0,
+  bikeNum: 0 }
+[0mPOST /info [32m200 [0m4.507 ms - 31[0m
+[0mGET /favicon.ico [33m404 [0m1.389 ms - 2386[0m
+[0mGET /user?id=lalala [36m304 [0m1.594 ms - -[0m
+[0mGET /user?id=lalala [32m200 [0m2.734 ms - 71[0m
+{ trip: 
+   { id: 1,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: '', id: 'testfromiOS', maxTripNum: 1 } }
+testfromiOS
+{ _id: 5ab9d1c33094e71b7f91823f,
+  id: 'testfromiOS',
+  maxTripNum: 10,
+  __v: 5,
+  trip: 
+   [ { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1c33094e71b7f918240,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1da3094e71b7f918242,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1e33094e71b7f918244,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1e83094e71b7f918246,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 2,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d1eb3094e71b7f918248,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] },
+     { id: 1,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d20c3094e71b7f91824a,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] } ],
+  areaID: null }
+[0mPOST /save [32m200 [0m21.253 ms - 47[0m
+[ { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m34.432 ms - 9516[0m
+[0mGET /favicon.ico [33m404 [0m1.656 ms - 2386[0m
+[0mGET /user?id=lalala [32m200 [0m1.781 ms - 71[0m
+[0mGET /favicon.ico [33m404 [0m1.610 ms - 2386[0m
+[ { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET /?id=lalala [32m200 [0m34.247 ms - 9516[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.161 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.780 ms - -[0m
+[ { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET /?id=lalala [36m304 [0m24.660 ms - -[0m
+[ { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET /?id=testfromiOS [32m200 [0m31.094 ms - 9516[0m
+[0mGET /stylesheets/style.css [36m304 [0m2.126 ms - -[0m
+[ { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET /?id=testfromiOS [36m304 [0m17.891 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.308 ms - -[0m
+[ { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m14.953 ms - 9516[0m
+[ { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m13.675 ms - 9516[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.294 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.569 ms - -[0m
+{ trip: 
+   { id: 3,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: '', id: 'lalala', maxTripNum: 4 } }
+lalala
+{ _id: 5ab9d4113094e71b7f91824c,
+  id: 'lalala',
+  maxTripNum: 0,
+  __v: 0,
+  trip: [],
+  areaID: '' }
+[0mPOST /save [32m200 [0m7.176 ms - 47[0m
+[ { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m20.376 ms - 9516[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.496 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.284 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.587 ms - -[0m
+[ { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [36m304 [0m16.871 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.352 ms - -[0m
+[0mGET /info?id=lalala [36m304 [0m2.983 ms - -[0m
+[0mGET /info?id=iOSiOS [32m200 [0m2.664 ms - 11071[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.374 ms - -[0m
+{ id: 'iOSiOS',
+  sex: 3,
+  year: 0,
+  area: 1,
+  grade: 1,
+  major: 1,
+  mainWay: 1,
+  majorName: 'iOS',
+  has: 0,
+  carNum: 0,
+  mobikeNum: 0,
+  bikeNum: 0 }
+[0mPOST /info [32m200 [0m4.117 ms - 31[0m
+{ trip: 
+   { id: 0,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: '', id: 'iOSiOS', maxTripNum: 1 } }
+iOSiOS
+null
+[0mGET /stylesheets/style.css [36m304 [0m0.357 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 1,
+    __v: 0,
+    trip: [ [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m21.112 ms - 10675[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 1,
+    __v: 0,
+    trip: [ [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m14.725 ms - 10675[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.364 ms - -[0m
+[0mPOST /save [0m- [0m- ms - -[0m
+{ trip: 
+   { id: 1,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: '', id: 'iOSiOS', maxTripNum: 2 } }
+iOSiOS
+{ _id: 5ab9d5563094e71b7f918253,
+  id: 'iOSiOS',
+  maxTripNum: 1,
+  __v: 0,
+  trip: 
+   [ { id: 0,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d5563094e71b7f918254,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] } ],
+  areaID: null }
+[0mPOST /save [32m200 [0m8.990 ms - 47[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m19.462 ms - 11820[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.312 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.390 ms - -[0m
+[0mGET /user [32m200 [0m2.596 ms - 57[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [36m304 [0m18.348 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.417 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.880 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [36m304 [0m16.677 ms - -[0m
+[0mGET /info?id=iOSiOS [36m304 [0m1.576 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.270 ms - -[0m
+[0mGET /info?id=iOSlalala [32m200 [0m4.686 ms - 11074[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.264 ms - -[0m
+{ id: 'iOSlalala',
+  sex: 3,
+  year: 0,
+  area: 1,
+  grade: 1,
+  major: 1,
+  mainWay: 1,
+  majorName: '喵',
+  has: 0,
+  carNum: 0,
+  mobikeNum: 0,
+  bikeNum: 0 }
+[0mPOST /info [32m200 [0m4.017 ms - 31[0m
+[0mGET /user [32m200 [0m2.688 ms - 57[0m
+{ trip: 
+   { id: 0,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: '', id: 'iOSlalala', maxTripNum: 1 } }
+iOSlalala
+null
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 1,
+    __v: 0,
+    trip: [ [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m17.636 ms - 12985[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.288 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.311 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 1,
+    __v: 0,
+    trip: [ [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m23.678 ms - 12985[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.284 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.288 ms - -[0m
+[0mPOST /save [0m- [0m- ms - -[0m
+[0mGET /user [32m200 [0m1.387 ms - 57[0m
+{ trip: 
+   { id: 1,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstart' },
+     eLocation: { data: [Object], describe: 'hhhend' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: '', id: 'iOSlalala', maxTripNum: 2 } }
+iOSlalala
+{ _id: 5ab9d6d43094e71b7f918259,
+  id: 'iOSlalala',
+  maxTripNum: 1,
+  __v: 0,
+  trip: 
+   [ { id: 0,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5ab9d6d43094e71b7f91825a,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] } ],
+  areaID: null }
+[0mPOST /save [32m200 [0m7.293 ms - 47[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.220 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m19.405 ms - 14136[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.277 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.295 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [36m304 [0m15.813 ms - -[0m
+[0mGET /info?id=iOSlalala [36m304 [0m1.809 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.772 ms - -[0m
+[0mGET /info?id=iOSlalala [36m304 [0m2.314 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m2.294 ms - -[0m
+[0mGET /info?id=iOSlalala [36m304 [0m1.824 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.720 ms - -[0m
+[0mGET /info?id=iOSmiao [32m200 [0m1.512 ms - 11072[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.292 ms - -[0m
+[0mGET /info?id=miao [32m200 [0m2.179 ms - 11069[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m14.066 ms - 14136[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET /?id%3Dlalala [32m200 [0m15.767 ms - 14136[0m
+[0mGET /user?id%3Dlalala [32m200 [0m1.372 ms - 57[0m
+[0mGET /save [33m404 [0m1.134 ms - 2386[0m
+`open()` is deprecated in mongoose >= 4.11.0, use `openUri()` instead, or set the `useMongoClient` option if using `connect()` or `createConnection()`. See http://mongoosejs.com/docs/4.x/docs/connections.html#use-mongo-client
+Listening on port 3000
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m88.582 ms - 14136[0m
+`open()` is deprecated in mongoose >= 4.11.0, use `openUri()` instead, or set the `useMongoClient` option if using `connect()` or `createConnection()`. See http://mongoosejs.com/docs/4.x/docs/connections.html#use-mongo-client
+Listening on port 3000
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m94.790 ms - 14136[0m
+[0mGET /stylesheets/style.css [32m200 [0m8.022 ms - 396[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m43.499 ms - 14136[0m
+[0mGET /info?id=testiOS [32m200 [0m3.329 ms - 11072[0m
+[0mGET /stylesheets/style.css [32m200 [0m2.706 ms - 396[0m
+[0mGET /favicon.ico [33m404 [0m2.055 ms - 2386[0m
+{ id: 'testiOS',
+  sex: 3,
+  year: 0,
+  area: 1,
+  grade: 1,
+  major: 1,
+  mainWay: 1,
+  majorName: '',
+  has: 0,
+  carNum: 0,
+  mobikeNum: 0,
+  bikeNum: 0 }
+[0mPOST /info [32m200 [0m34.581 ms - 31[0m
+[0mGET /user?id=testiOS [32m200 [0m8.649 ms - 82[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m31.910 ms - 14136[0m
+[0mGET /stylesheets/style.css [32m200 [0m0.625 ms - 396[0m
+{ trip: 
+   { id: 0,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstartiOS' },
+     eLocation: { data: [Object], describe: 'hhhendiOS' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: '', id: 'testiOS', maxTripNum: 1 } }
+testiOS
+{ _id: 5abd98d6bf4d904c8c48287c,
+  id: 'testiOS',
+  maxTripNum: 0,
+  __v: 0,
+  trip: [],
+  areaID: '' }
+[0mPOST /save [32m200 [0m14.467 ms - 31[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m28.427 ms - 14136[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.130 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.276 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m29.469 ms - 14136[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.234 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.248 ms - -[0m
+{ trip: 
+   { id: 1,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstartiOS' },
+     eLocation: { data: [Object], describe: 'hhhendiOS' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: '', id: 'testiOS', maxTripNum: 2 } }
+testiOS
+{ _id: 5abd98d6bf4d904c8c48287c,
+  id: 'testiOS',
+  maxTripNum: 1,
+  __v: 1,
+  trip: 
+   [ { id: 0,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5abd9939bf4d904c8c48287d,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] } ],
+  areaID: '' }
+[0mPOST /save [32m200 [0m37.600 ms - 31[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.280 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m20.027 ms - 14136[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.351 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m14.765 ms - 14136[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.214 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.195 ms - -[0m
+[0mGET /info?id=iOSmiao [32m200 [0m1.870 ms - 11072[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.356 ms - -[0m
+[0mGET /info?id=aiOS [32m200 [0m1.449 ms - 11069[0m
+[0mGET /stylesheets/style.css [36m304 [0m2.202 ms - -[0m
+{ id: 'aiOS',
+  sex: 3,
+  year: 0,
+  area: 1,
+  grade: 1,
+  major: 1,
+  mainWay: 1,
+  majorName: '123',
+  has: 0,
+  carNum: 0,
+  mobikeNum: 0,
+  bikeNum: 0 }
+[0mPOST /info [32m200 [0m2.878 ms - 31[0m
+[0mGET /user?id=aiOS [32m200 [0m3.437 ms - 79[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m19.626 ms - 14136[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.239 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.856 ms - -[0m
+{ trip: 
+   { id: 0,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstartiOS' },
+     eLocation: { data: [Object], describe: 'hhhendiOS' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: '', id: 'aiOS', maxTripNum: 1 } }
+aiOS
+{ _id: 5abd997abf4d904c8c482882,
+  id: 'aiOS',
+  maxTripNum: 0,
+  __v: 0,
+  trip: [],
+  areaID: '' }
+[0mPOST /save [32m200 [0m6.590 ms - 31[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m22.226 ms - 14136[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.241 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.256 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m15.575 ms - 14136[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.214 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.272 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m13.843 ms - 14136[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.230 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.604 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.418 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m20.287 ms - 14136[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.418 ms - -[0m
+[0mGET /user?id%3DtestiOS [32m200 [0m4.567 ms - 57[0m
+[0mGET /user?id%253DtestiOS [32m200 [0m1.949 ms - 57[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [36m304 [0m20.516 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.484 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m2.046 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m31.375 ms - 14136[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m19.982 ms - 14136[0m
+[0mGET /stylesheets/style.css [32m200 [0m1.891 ms - 396[0m
+[0mGET /user?id=aiOS [32m200 [0m6.390 ms - 69[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.622 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [36m304 [0m16.497 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.578 ms - -[0m
+[0mGET /info?id=aiOS [36m304 [0m2.439 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.321 ms - -[0m
+[0mGET /info?id=aiOS [36m304 [0m1.844 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.409 ms - -[0m
+[0mGET /info?id=aiOS [36m304 [0m2.176 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.321 ms - -[0m
+[0mGET /info?id=aiOS [36m304 [0m4.014 ms - -[0m
+[0mGET /info?id=aiOS [36m304 [0m2.684 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.248 ms - -[0m
+[ { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null } ]
+[0mGET / [36m304 [0m16.166 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.230 ms - -[0m
+[0mGET /info?id=something [32m200 [0m4.583 ms - 11074[0m
+[0mGET /info?id=abc [32m200 [0m1.488 ms - 11068[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.387 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.304 ms - -[0m
+`open()` is deprecated in mongoose >= 4.11.0, use `openUri()` instead, or set the `useMongoClient` option if using `connect()` or `createConnection()`. See http://mongoosejs.com/docs/4.x/docs/connections.html#use-mongo-client
+Listening on port 3000
+[ { _id: 5ab9d0693094e71b7f91823e,
+    maxTripNum: 0,
+    __v: 0,
+    trip: [],
+    areaID: '' },
+  { _id: 5ab9d4113094e71b7f91824c,
+    id: 'lalala',
+    maxTripNum: 4,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5abd997abf4d904c8c482882,
+    id: 'aiOS',
+    maxTripNum: 1,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null },
+  { _id: 5abd98d6bf4d904c8c48287c,
+    id: 'testiOS',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: '' } ]
+[0mGET / [32m200 [0m116.354 ms - 18790[0m
+[0mGET /stylesheets/style.css [36m304 [0m2.273 ms - -[0m
+[ { _id: 5ab9d0693094e71b7f91823e,
+    maxTripNum: 0,
+    __v: 0,
+    trip: [],
+    areaID: '' },
+  { _id: 5ab9d4113094e71b7f91824c,
+    id: 'lalala',
+    maxTripNum: 4,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5abd997abf4d904c8c482882,
+    id: 'aiOS',
+    maxTripNum: 1,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null },
+  { _id: 5abd98d6bf4d904c8c48287c,
+    id: 'testiOS',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: '' } ]
+[0mGET / [32m200 [0m87.872 ms - 18790[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.135 ms - -[0m
+[0mGET /info?id=aiOS [36m304 [0m3.071 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m3.167 ms - -[0m
+[0mGET /info?id=a331 [32m200 [0m2.651 ms - 11069[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.958 ms - -[0m
+{ id: 'a331',
+  sex: 3,
+  year: 0,
+  area: 1,
+  grade: 1,
+  major: 1,
+  mainWay: 1,
+  majorName: '..',
+  has: 0,
+  carNum: 0,
+  mobikeNum: 0,
+  bikeNum: 0 }
+[0mPOST /info [32m200 [0m33.464 ms - 31[0m
+[0mGET /user?id=a331 [32m200 [0m11.542 ms - 81[0m
+{ trip: 
+   { id: 0,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstartiOS' },
+     eLocation: { data: [Object], describe: 'hhhendiOS' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: null, id: 'a331', maxTripNum: 1 } }
+a331
+{ _id: 5abf4886d309c23f5d26bc20,
+  id: 'a331',
+  maxTripNum: 0,
+  __v: 0,
+  trip: [],
+  areaID: null }
+[0mPOST /save [32m200 [0m18.339 ms - 31[0m
+[0mGET /stylesheets/style.css [36m304 [0m1.202 ms - -[0m
+[0mGET /info?id=a331 [36m304 [0m2.392 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.817 ms - -[0m
+[ { _id: 5ab9d0693094e71b7f91823e,
+    maxTripNum: 0,
+    __v: 0,
+    trip: [],
+    areaID: '' },
+  { _id: 5ab9d4113094e71b7f91824c,
+    id: 'lalala',
+    maxTripNum: 4,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5abd997abf4d904c8c482882,
+    id: 'aiOS',
+    maxTripNum: 1,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5abf4886d309c23f5d26bc20,
+    id: 'a331',
+    maxTripNum: 1,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null },
+  { _id: 5abd98d6bf4d904c8c48287c,
+    id: 'testiOS',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: '' } ]
+[0mGET / [32m200 [0m48.101 ms - 19951[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.448 ms - -[0m
+[0mGET /user?id=a331 [32m200 [0m6.017 ms - 71[0m
+[ { _id: 5ab9d0693094e71b7f91823e,
+    maxTripNum: 0,
+    __v: 0,
+    trip: [],
+    areaID: '' },
+  { _id: 5ab9d4113094e71b7f91824c,
+    id: 'lalala',
+    maxTripNum: 4,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5abd997abf4d904c8c482882,
+    id: 'aiOS',
+    maxTripNum: 1,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5abf4886d309c23f5d26bc20,
+    id: 'a331',
+    maxTripNum: 1,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: null },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null },
+  { _id: 5abd98d6bf4d904c8c48287c,
+    id: 'testiOS',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: '' } ]
+[0mGET / [32m200 [0m43.987 ms - 19951[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.376 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.373 ms - -[0m
+{ trip: 
+   { id: 1,
+     date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     purpose: 1,
+     sLocation: { data: [Object], describe: 'hhhstartiOS' },
+     eLocation: { data: [Object], describe: 'hhhendiOS' },
+     sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+     eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+     waysCount: 1,
+     deltaTime: [ 1, 0, 0 ],
+     distance: 1000,
+     children: [ [Object] ] },
+  user: { areaID: null, id: 'a331', maxTripNum: 2 } }
+a331
+{ _id: 5abf4886d309c23f5d26bc20,
+  id: 'a331',
+  maxTripNum: 1,
+  __v: 1,
+  trip: 
+   [ { id: 0,
+       date: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       purpose: 1,
+       sDate: 'Thu Mar 08 2018 19:35:45 GMT+0800',
+       eDate: 'Thu Mar 08 2018 20:35:45 GMT+0800',
+       waysCount: 1,
+       distance: 1000,
+       _id: 5abf489cd309c23f5d26bc21,
+       children: [Object],
+       deltaTime: [Object],
+       eLocation: [Object],
+       sLocation: [Object] } ],
+  areaID: null }
+[0mPOST /save [32m200 [0m12.555 ms - 31[0m
+[0mGET /user?id=a331 [32m200 [0m6.085 ms - 71[0m
+[ { _id: 5ab9d0693094e71b7f91823e,
+    maxTripNum: 0,
+    __v: 0,
+    trip: [],
+    areaID: '' },
+  { _id: 5ab9d4113094e71b7f91824c,
+    id: 'lalala',
+    maxTripNum: 4,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5abd997abf4d904c8c482882,
+    id: 'aiOS',
+    maxTripNum: 1,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null },
+  { _id: 5abd98d6bf4d904c8c48287c,
+    id: 'testiOS',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: '' },
+  { _id: 5abf4886d309c23f5d26bc20,
+    id: 'a331',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m30.124 ms - 21098[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.244 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.316 ms - -[0m
+[ { _id: 5ab9d0693094e71b7f91823e,
+    maxTripNum: 0,
+    __v: 0,
+    trip: [],
+    areaID: '' },
+  { _id: 5ab9d4113094e71b7f91824c,
+    id: 'lalala',
+    maxTripNum: 4,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5abd997abf4d904c8c482882,
+    id: 'aiOS',
+    maxTripNum: 1,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null },
+  { _id: 5abd98d6bf4d904c8c48287c,
+    id: 'testiOS',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: '' },
+  { _id: 5abf4886d309c23f5d26bc20,
+    id: 'a331',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m31.025 ms - 21098[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.268 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.308 ms - -[0m
+[0mPOST /recognition [33m400 [0m2.672 ms - 1561[0m
+[0mPOST /recognition [31m500 [0m2.057 ms - 2287[0m
+[0mGET /user?id=a331 [32m200 [0m4.004 ms - 71[0m
+[0mPOST /recognition [31m500 [0m1.569 ms - 2287[0m
+[0mPOST /recognition [31m500 [0m1.706 ms - 2287[0m
+[0mGET /recognition [33m404 [0m1.156 ms - 2386[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.458 ms - -[0m
+[0mPOST /recognition [31m500 [0m1.862 ms - 2287[0m
+`open()` is deprecated in mongoose >= 4.11.0, use `openUri()` instead, or set the `useMongoClient` option if using `connect()` or `createConnection()`. See http://mongoosejs.com/docs/4.x/docs/connections.html#use-mongo-client
+Listening on port 3000
+[ { _id: 5ab9d0693094e71b7f91823e,
+    maxTripNum: 0,
+    __v: 0,
+    trip: [],
+    areaID: '' },
+  { _id: 5ab9d4113094e71b7f91824c,
+    id: 'lalala',
+    maxTripNum: 4,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5abd997abf4d904c8c482882,
+    id: 'aiOS',
+    maxTripNum: 1,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null },
+  { _id: 5abd98d6bf4d904c8c48287c,
+    id: 'testiOS',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: '' },
+  { _id: 5abf4886d309c23f5d26bc20,
+    id: 'a331',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m121.888 ms - 21098[0m
+[0mGET /stylesheets/style.css [36m304 [0m2.539 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.696 ms - -[0m
+[0mPOST /recognition [31m500 [0m17.174 ms - 2287[0m
+[0mPOST /recognition [31m500 [0m53.044 ms - 2287[0m
+[0mPOST /recognition [31m500 [0m2.007 ms - 2287[0m
+[0mGET /user?id=a331 [32m200 [0m9.385 ms - 71[0m
+[0mPOST /recognition [31m500 [0m1.642 ms - 2287[0m
+[0mPOST /recognition [31m500 [0m1.671 ms - 2514[0m
+`open()` is deprecated in mongoose >= 4.11.0, use `openUri()` instead, or set the `useMongoClient` option if using `connect()` or `createConnection()`. See http://mongoosejs.com/docs/4.x/docs/connections.html#use-mongo-client
+Listening on port 3000
+Error when recognition!
+Message: python: can't open file '../recognition/one_segment.py': [Errno 2] No such file or directory
+
+Data: [object Object]
+[0mPOST /recognition [32m200 [0m94.977 ms - 408[0m
+Error when recognition!
+Message: python: can't open file '../recognition/one_segment.py': [Errno 2] No such file or directory
+
+Data: [object Object]
+[0mPOST /recognition [32m200 [0m13.714 ms - 408[0m
+Error when recognition!
+Message: python: can't open file '../recognition/one_segment.py': [Errno 2] No such file or directory
+
+Data: [object Object]
+[0mPOST /recognition [32m200 [0m12.997 ms - 408[0m
+[ { _id: 5ab9d0693094e71b7f91823e,
+    maxTripNum: 0,
+    __v: 0,
+    trip: [],
+    areaID: '' },
+  { _id: 5ab9d4113094e71b7f91824c,
+    id: 'lalala',
+    maxTripNum: 4,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d5563094e71b7f918253,
+    id: 'iOSiOS',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5ab9d6d43094e71b7f918259,
+    id: 'iOSlalala',
+    maxTripNum: 2,
+    __v: 1,
+    trip: [ [Object], [Object] ],
+    areaID: null },
+  { _id: 5abd997abf4d904c8c482882,
+    id: 'aiOS',
+    maxTripNum: 1,
+    __v: 1,
+    trip: [ [Object] ],
+    areaID: '' },
+  { _id: 5ab9d1c33094e71b7f91823f,
+    id: 'testfromiOS',
+    maxTripNum: 1,
+    __v: 6,
+    trip: 
+     [ [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object],
+       [Object] ],
+    areaID: null },
+  { _id: 5abd98d6bf4d904c8c48287c,
+    id: 'testiOS',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: '' },
+  { _id: 5abf4886d309c23f5d26bc20,
+    id: 'a331',
+    maxTripNum: 2,
+    __v: 2,
+    trip: [ [Object], [Object] ],
+    areaID: null } ]
+[0mGET / [32m200 [0m134.778 ms - 21098[0m
+`open()` is deprecated in mongoose >= 4.11.0, use `openUri()` instead, or set the `useMongoClient` option if using `connect()` or `createConnection()`. See http://mongoosejs.com/docs/4.x/docs/connections.html#use-mongo-client
+Port 3000 is already in use
+Error when recognition!
+Message: python: can't open file '../recognition/one_segment.py': [Errno 2] No such file or directory
+
+Data: [object Object]
+[0mPOST /recognition [32m200 [0m18.751 ms - 408[0m
+Error when recognition!
+Message: python: can't open file '../recognition/one_segment.py': [Errno 2] No such file or directory
+
+Data: [object Object]
+[0mPOST /recognition [32m200 [0m12.737 ms - 408[0m
+Error when recognition!
+Message: python: can't open file '../recognition/one_segment.py': [Errno 2] No such file or directory
+
+Data: [object Object]
+[0mPOST /recognition [32m200 [0m14.270 ms - 408[0m
+[0mGET /recognition [33m404 [0m3.085 ms - 2386[0m
+Error when recognition!
+Message: python: can't open file '../recognition/one_segment.py': [Errno 2] No such file or directory
+
+Data: [object Object]
+[0mPOST /recognition [32m200 [0m14.151 ms - 408[0m

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>个人信息</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  </head>
+  <body>
+  <div>
+    <div class="form-group">
+      <label class="control-label">ID</label>
+      <input class="form-control" type="text" value=<%= id %> id="id" readonly/>
+    </div>
+
+    <div class="form-group">
+      <label >性别</label>
+      <select class="form-control" id="sex">
+        <option>男</option>
+        <option>女</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >年龄</label>
+      <select class="form-control" id="year">
+        <% for(var i=0; i<=120; i++){ %>
+        <option> <%= i+"岁" %> </option>
+        <% } %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >宿舍区</label>
+      <select class="form-control" id="area">
+        <option>蓝田</option>
+        <option>云峰</option>
+        <option>丹青</option>
+        <option>翠柏</option>
+        <option>白沙</option>
+        <option>留学生宿舍</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >年级</label>
+      <select class="form-control" id="grade">
+        <option>大一</option>
+        <option>大二</option>
+        <option>大三</option>
+        <option>大四</option>
+        <option>大五</option>
+        <option>研究生及以上</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >专业大类</label>
+      <select class="form-control" id="major">
+        <option>人文学部</option>
+        <option>社会科学学部</option>
+        <option>理学部</option>
+        <option>工学部</option>
+        <option>信息学部</option>
+        <option>农业生命环境学部</option>
+        <option>医药学部</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >校内主要出行方式</label>
+      <select class="form-control" id="mainWay">
+        <option>步行</option>
+        <option>自行车</option>
+        <option>电动车</option>
+        <option>小汽车</option>
+        <option>校览车</option>
+        <option>其他</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>专业名称</label>
+      <input class="form-control" id="majorName" placeholder="如：土木工程">
+    </div>
+
+    <div class="form-group">
+      <label>汽车驾照</label>
+      <select class="form-control" id="has">
+        <option>有</option>
+        <option>无</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >汽车保有量</label>
+      <select class="form-control" id="carNum">
+        <% for(var i=0; i<=5; i++){ %>
+        <option> <%= i %> </option>
+        <% } %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >电动车保有量</label>
+      <select class="form-control" id="mobikeNum">
+        <% for(var i=0; i<=5; i++){ %>
+        <option> <%= i %> </option>
+        <% } %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label >自行车保有量</label>
+      <select class="form-control" id="bikeNum">
+        <% for(var i=0; i<=5; i++){ %>
+        <option> <%= i %> </option>
+        <% } %>
+      </select>
+    </div>
+
+    <button class="btn btn-default" id="submit">Submit</button>
+  </div>
+
+  <div id="success" class="myalert">
+    添加成功
+  </div>
+
+  <div id="failed" class="myalert">
+    添加失败
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script>
+    $("#submit").click(function(){
+      $.ajax({
+        url: "/info",
+        contentType: 'application/json',
+        type: 'POST',
+        data: JSON.stringify({
+          form:{
+            id: $("#id").val(),
+            sex: ($("#sex").val()=='男')?3:4,
+            year: $("#year").prop('selectedIndex'),
+            area: $("#area").prop('selectedIndex')+1,
+            grade: $("#grade").prop('selectedIndex')+1,
+            major: $("#major").prop('selectedIndex')+1,
+            mainWay: $("#mainWay").prop('selectedIndex')+1,
+            majorName: $("#majorName").val(),
+            has: $("#has").prop('selectedIndex'),
+            carNum: $("#carNum").prop('selectedIndex'),
+            mobikeNum: $("#mobikeNum").prop('selectedIndex'),
+            bikeNum: $("#bikeNum").prop('selectedIndex')
+          }
+        }),
+        success: function(data) {
+          var code = data.code;
+          if(code<0){
+            $("#failed").show();
+          }
+          else{
+            $("#success").show();
+          }
+          console.log(data);
+        },
+        error: function(xhr, status, err) {
+          $("#failed").show();
+        }
+      });
+    })
+
+  </script>
+  </body>
+</html>
