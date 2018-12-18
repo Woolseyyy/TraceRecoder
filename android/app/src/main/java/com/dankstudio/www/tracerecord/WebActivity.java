@@ -19,7 +19,7 @@ public class WebActivity extends AppCompatActivity {
         entityName = getImei(getApplicationContext());
         webView = (WebView) findViewById(R.id.web);
         webviewConfig();
-        webView.loadUrl("http://123.206.108.55:3000/info?id="+entityName);
+        webView.loadUrl("http://122.152.206.185:3000/info?id="+entityName);
     }
 
     private void webviewConfig(){

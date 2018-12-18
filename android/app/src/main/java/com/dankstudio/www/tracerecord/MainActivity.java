@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         mMapView = (MapView) findViewById(R.id.bmapView);
         btn_start = (Button) findViewById(R.id.switcher);
         btn_modeChange = (Button) findViewById(R.id.mode);
+        btn_modeChange.setEnabled(false);
         btn_info = (Button) findViewById(R.id.info);
         btn_help = (Button) findViewById(R.id.help);
         textview = (TextView)findViewById(R.id.textView2);
@@ -166,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 String ans = item.getTitle().toString();
                 if(ans.equals("是")){
+                    btn_modeChange.setEnabled(false);
+
                     if(myService.ifParking()){
                         parkingPurpose = 2;
                         showParkingPlace(view);
@@ -222,6 +225,8 @@ public class MainActivity extends AppCompatActivity {
                 btn_start.setText("Stop");
                 btnStatue = btnStatue+1;
 
+                btn_modeChange.setEnabled(true);
+
                 mySignal = 1;
                 new Thread(mRunnable).start();
 
@@ -248,6 +253,8 @@ public class MainActivity extends AppCompatActivity {
                         myService.start(purpose, way);
                         btn_start.setText("Stop");
                         btnStatue = btnStatue+1;
+
+                        btn_modeChange.setEnabled(true);
 
                         mySignal = 1;
                         new Thread(mRunnable).start();

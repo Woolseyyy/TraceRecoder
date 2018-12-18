@@ -73,9 +73,9 @@ class ParkingPlace {
 }
 
 class TravelPurpose{
-    private final String[] ways = {"上课", "就餐", "自习", "购物",
-            "回寝室", "体育运动", "社团活动", "听讲座或看话剧",
-            "休闲活动如散步等", "就医", "其他"};
+    private final String[] ways = {"办事", "上课", "就餐", "自习", "购物",
+            "回寝室", "社团活动", "学术活动(如讲座)",
+            "娱乐活动", "就医", "其他"};
     private final int[] id = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
     public int c = 0;
